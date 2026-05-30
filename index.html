@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Área del cuadrado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="estado-js" id="estado-js">JavaScript no activo</div>
+
+  <div class="contenedor" id="pantalla-cuadrado">
+    <h1>Área del cuadrado</h1>
+
+    <p>El lado del cuadrado mide <strong>4 cm</strong>.</p>
+
+    <div class="cuadrado">4 cm</div>
+
+    <p>¿Cuál es el área?</p>
+
+    <input
+      id="respuesta"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificar()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificar()">Responder</button>
+
+    <div id="resultado">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-rectangulo">
+    <h1>Área del rectángulo</h1>
+
+    <p>El rectángulo mide <strong>4 cm</strong> de lado y <strong>8 cm</strong> de lado.</p>
+
+    <div class="rectangulo-con-medidas">
+      <div class="medida-vertical">4 cm</div>
+      <div class="rectangulo"></div>
+      <div class="medida-horizontal">8 cm</div>
+    </div>
+
+    <p>¿Cuál es el área?</p>
+
+    <input
+      id="respuesta-rectangulo"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarRectangulo()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-rectangulo">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarRectangulo()">Responder</button>
+
+    <div id="resultado-rectangulo">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-total">
+    <h1>Área total</h1>
+
+    <p>Calcula el área total de la figura.</p>
+
+    <div class="figura-unida">
+      <div class="parte-cuadrado">4 cm</div>
+      <div class="parte-rectangulo"></div>
+      <div class="medida-rectangulo-total">8 cm</div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-total"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarTotal()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-total">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarTotal()">Responder</button>
+
+    <div id="resultado-total">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-l">
+    <h1>Área total</h1>
+
+    <p>Calcula el área total de esta figura.</p>
+
+    <div class="figura-l-con-medidas">
+      <div class="medida-l-vertical">8 cm</div>
+      <div class="figura-l">
+        <div class="pieza-l-superior"></div>
+        <div class="pieza-l-inferior"></div>
+      </div>
+      <div class="medida-l-superior">12 cm</div>
+      <div class="medida-l-inferior">4 cm</div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-l"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarL()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-l">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarL()">Responder</button>
+
+    <div id="resultado-l">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-escalera">
+    <h1>Área total</h1>
+
+    <p>Cada cuadradito tiene lado <strong>4 cm</strong>.</p>
+
+    <div class="figura-escalera">
+      <div class="bloque bloque-medida">4 cm</div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-escalera"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarEscalera()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-escalera">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarEscalera()">Responder</button>
+
+    <div id="resultado-escalera">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-hueco">
+    <h1>Área total</h1>
+
+    <p>Calcula el área de la figura con el hueco.</p>
+
+    <div class="figura-hueco-con-medidas">
+      <div class="medida-hueco-vertical">8 cm</div>
+      <div class="medida-hueco-superior">12 cm</div>
+      <div class="figura-hueco">
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="hueco">4 cm</div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+      </div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-hueco"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarHueco()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-hueco">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarHueco()">Responder</button>
+
+    <div id="resultado-hueco">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-doble-hueco">
+    <h1>Área total</h1>
+
+    <p>Calcula el área de la figura con dos huecos.</p>
+
+    <div class="figura-doble-con-medidas">
+      <div class="medida-doble-vertical">12 cm</div>
+      <div class="medida-doble-superior">16 cm</div>
+      <div class="figura-doble-hueco">
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="hueco">4 cm</div>
+        <div class="hueco">4 cm</div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="hueco">4 cm</div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+      </div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-doble-hueco"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarDobleHueco()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-doble-hueco">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarDobleHueco()">Responder</button>
+
+    <div id="resultado-doble-hueco">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="teclado-numerico" id="teclado-numerico">
+    <button type="button" data-tecla="1" onclick="return tocarNumero(null, '1')">1</button>
+    <button type="button" data-tecla="2" onclick="return tocarNumero(null, '2')">2</button>
+    <button type="button" data-tecla="3" onclick="return tocarNumero(null, '3')">3</button>
+    <button type="button" data-tecla="4" onclick="return tocarNumero(null, '4')">4</button>
+    <button type="button" data-tecla="5" onclick="return tocarNumero(null, '5')">5</button>
+    <button type="button" data-tecla="6" onclick="return tocarNumero(null, '6')">6</button>
+    <button type="button" data-tecla="7" onclick="return tocarNumero(null, '7')">7</button>
+    <button type="button" data-tecla="8" onclick="return tocarNumero(null, '8')">8</button>
+    <button type="button" data-tecla="9" onclick="return tocarNumero(null, '9')">9</button>
+    <button type="button" data-tecla="Borrar" onclick="return tocarNumero(null, 'Borrar')">Borrar</button>
+    <button type="button" data-tecla="0" onclick="return tocarNumero(null, '0')">0</button>
+    <button type="button" class="tecla-ok" data-tecla="OK" onclick="return tocarNumero(null, 'OK')">OK</button>
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
