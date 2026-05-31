@@ -1,0 +1,1065 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Área del cuadrado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+body {
+  margin: 0;
+  padding: 14px 14px 120px;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  text-align: center;
+}
+
+.contenedor {
+  max-width: 380px;
+  margin: 0 auto;
+  background: white;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+
+.estado-js {
+  max-width: 380px;
+  margin: 0 auto 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: #991b1b;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.estado-js.activo {
+  background: #dcfce7;
+  color: #166534;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 18px;
+}
+
+.cuadrado {
+  width: 150px;
+  height: 150px;
+  border: 4px solid #222;
+  margin: 24px auto;
+  background: #dbeafe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.rectangulo-con-medidas {
+  width: 270px;
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: 48px 220px;
+  grid-template-rows: 110px auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.rectangulo {
+  width: 220px;
+  height: 110px;
+  border: 4px solid #222;
+  background: #dbeafe;
+  box-sizing: border-box;
+}
+
+.medida-vertical,
+.medida-horizontal {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.medida-vertical {
+  grid-column: 1;
+  grid-row: 1;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.medida-horizontal {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 8px;
+}
+
+.figura-unida {
+  width: 330px;
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: 110px 220px;
+  grid-template-rows: 110px auto;
+  justify-content: center;
+}
+
+.parte-cuadrado,
+.parte-rectangulo {
+  height: 110px;
+  background: #dbeafe;
+  box-sizing: border-box;
+}
+
+.parte-cuadrado {
+  width: 110px;
+  border: 4px solid #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.parte-rectangulo {
+  width: 220px;
+  border-top: 4px solid #222;
+  border-right: 4px solid #222;
+  border-bottom: 4px solid #222;
+}
+
+.medida-rectangulo-total {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 8px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.figura-l-con-medidas {
+  width: 330px;
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: 48px 264px;
+  grid-template-rows: auto 176px auto auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.figura-l {
+  grid-column: 2;
+  grid-row: 2;
+  width: 264px;
+  height: 176px;
+  display: grid;
+  grid-template-columns: 88px 176px;
+  grid-template-rows: 88px 88px;
+}
+
+.pieza-l-superior,
+.pieza-l-inferior {
+  background: #dbeafe;
+  box-sizing: border-box;
+}
+
+.pieza-l-superior {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  border: 4px solid #222;
+}
+
+.pieza-l-inferior {
+  grid-column: 1;
+  grid-row: 2;
+  border-left: 4px solid #222;
+  border-right: 4px solid #222;
+  border-bottom: 4px solid #222;
+}
+
+.medida-l-vertical,
+.medida-l-superior,
+.medida-l-inferior {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.medida-l-vertical {
+  grid-column: 1;
+  grid-row: 2;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.medida-l-superior {
+  grid-column: 2;
+  grid-row: 1;
+  margin-bottom: 8px;
+}
+
+.medida-l-inferior {
+  grid-column: 2;
+  grid-row: 3;
+  width: 88px;
+  margin-top: 8px;
+}
+
+.figura-escalera {
+  width: 198px;
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 66px);
+  grid-template-rows: repeat(3, 66px);
+}
+
+.bloque,
+.bloque-medida,
+.hueco {
+  width: 66px;
+  height: 66px;
+  box-sizing: border-box;
+}
+
+.bloque,
+.bloque-medida {
+  background: #dbeafe;
+  border: 3px solid #222;
+}
+
+.bloque-medida,
+.hueco {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.bloque-vacio {
+  width: 66px;
+  height: 66px;
+}
+
+.hueco {
+  background: white;
+  border: 3px dashed #888;
+  color: #555;
+}
+
+.figura-hueco-con-medidas,
+.figura-doble-con-medidas {
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: 48px auto;
+  grid-template-rows: auto auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.figura-hueco,
+.figura-doble-hueco {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+}
+
+.figura-hueco {
+  grid-template-columns: repeat(3, 66px);
+  grid-template-rows: repeat(2, 66px);
+}
+
+.figura-doble-hueco {
+  grid-template-columns: repeat(4, 66px);
+  grid-template-rows: repeat(3, 66px);
+}
+
+.medida-hueco-vertical,
+.medida-hueco-superior,
+.medida-doble-vertical,
+.medida-doble-superior {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.medida-hueco-vertical,
+.medida-doble-vertical {
+  grid-column: 1;
+  grid-row: 2;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.medida-hueco-superior,
+.medida-doble-superior {
+  grid-column: 2;
+  grid-row: 1;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 140px;
+  font-size: 28px;
+  padding: 10px;
+  text-align: center;
+  border: 2px solid #888;
+  border-radius: 10px;
+  background: white;
+}
+
+input[readonly] {
+  position: absolute;
+  left: -9999px;
+}
+
+.visor-respuesta {
+  width: 140px;
+  min-height: 36px;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 28px;
+  line-height: 36px;
+  text-align: center;
+  border: 2px solid #888;
+  border-radius: 10px;
+  background: white;
+  color: #888;
+}
+
+.visor-respuesta.activo {
+  border-color: #007aff;
+  box-shadow: 0 0 0 3px rgba(0,122,255,0.18);
+  color: #111;
+}
+
+.teclado-numerico {
+  position: fixed;
+  left: 50%;
+  bottom: calc(8px + env(safe-area-inset-bottom));
+  z-index: 9999;
+  width: 296px;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 42px);
+  gap: 5px;
+  justify-content: center;
+  padding: 7px;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+}
+
+.teclado-numerico button {
+  margin-top: 0;
+  min-height: 34px;
+  padding: 5px 0;
+  font-size: 18px;
+  border-radius: 8px;
+  background: #e5e7eb;
+  color: #111;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.teclado-numerico .tecla-ok {
+  background: #007aff;
+  color: white;
+}
+
+.teclado-numerico.oculto {
+  display: none;
+}
+
+button {
+  margin-top: 18px;
+  font-size: 22px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  background: #007aff;
+  color: white;
+}
+
+#resultado,
+#resultado-rectangulo,
+#resultado-total,
+#resultado-l,
+#resultado-escalera,
+#resultado-hueco,
+#resultado-doble-hueco {
+  margin-top: 24px;
+  font-size: 24px;
+  font-weight: bold;
+  min-height: 120px;
+}
+
+.medalla {
+  font-size: 90px;
+  margin-top: 10px;
+}
+
+.correcto {
+  color: green;
+}
+
+.incorrecto {
+  color: red;
+}
+
+.oculto {
+  display: none;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <div class="estado-js" id="estado-js">JavaScript no activo</div>
+
+  <div class="contenedor" id="pantalla-cuadrado">
+    <h1>Área del cuadrado</h1>
+
+    <p>El lado del cuadrado mide <strong>4 cm</strong>.</p>
+
+    <div class="cuadrado">4 cm</div>
+
+    <p>¿Cuál es el área?</p>
+
+    <input
+      id="respuesta"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificar()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificar()">Responder</button>
+
+    <div id="resultado">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-rectangulo">
+    <h1>Área del rectángulo</h1>
+
+    <p>El rectángulo mide <strong>4 cm</strong> de lado y <strong>8 cm</strong> de lado.</p>
+
+    <div class="rectangulo-con-medidas">
+      <div class="medida-vertical">4 cm</div>
+      <div class="rectangulo"></div>
+      <div class="medida-horizontal">8 cm</div>
+    </div>
+
+    <p>¿Cuál es el área?</p>
+
+    <input
+      id="respuesta-rectangulo"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarRectangulo()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-rectangulo">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarRectangulo()">Responder</button>
+
+    <div id="resultado-rectangulo">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-total">
+    <h1>Área total</h1>
+
+    <p>Calcula el área total de la figura.</p>
+
+    <div class="figura-unida">
+      <div class="parte-cuadrado">4 cm</div>
+      <div class="parte-rectangulo"></div>
+      <div class="medida-rectangulo-total">8 cm</div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-total"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarTotal()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-total">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarTotal()">Responder</button>
+
+    <div id="resultado-total">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-l">
+    <h1>Área total</h1>
+
+    <p>Calcula el área total de esta figura.</p>
+
+    <div class="figura-l-con-medidas">
+      <div class="medida-l-vertical">8 cm</div>
+      <div class="figura-l">
+        <div class="pieza-l-superior"></div>
+        <div class="pieza-l-inferior"></div>
+      </div>
+      <div class="medida-l-superior">12 cm</div>
+      <div class="medida-l-inferior">4 cm</div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-l"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarL()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-l">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarL()">Responder</button>
+
+    <div id="resultado-l">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-escalera">
+    <h1>Área total</h1>
+
+    <p>Cada cuadradito tiene lado <strong>4 cm</strong>.</p>
+
+    <div class="figura-escalera">
+      <div class="bloque bloque-medida">4 cm</div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-escalera"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarEscalera()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-escalera">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarEscalera()">Responder</button>
+
+    <div id="resultado-escalera">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-hueco">
+    <h1>Área total</h1>
+
+    <p>Calcula el área de la figura con el hueco.</p>
+
+    <div class="figura-hueco-con-medidas">
+      <div class="medida-hueco-vertical">8 cm</div>
+      <div class="medida-hueco-superior">12 cm</div>
+      <div class="figura-hueco">
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="hueco">4 cm</div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+      </div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-hueco"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarHueco()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-hueco">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarHueco()">Responder</button>
+
+    <div id="resultado-hueco">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-doble-hueco">
+    <h1>Área total</h1>
+
+    <p>Calcula el área de la figura con dos huecos.</p>
+
+    <div class="figura-doble-con-medidas">
+      <div class="medida-doble-vertical">12 cm</div>
+      <div class="medida-doble-superior">16 cm</div>
+      <div class="figura-doble-hueco">
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="hueco">4 cm</div>
+        <div class="hueco">4 cm</div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="hueco">4 cm</div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+      </div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-doble-hueco"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarDobleHueco()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-doble-hueco">cm²</div>
+
+    <br>
+
+    <button type="button" onclick="verificarDobleHueco()">Responder</button>
+
+    <div id="resultado-doble-hueco">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="teclado-numerico" id="teclado-numerico">
+    <button type="button" data-tecla="1" onclick="return tocarNumero(null, '1')">1</button>
+    <button type="button" data-tecla="2" onclick="return tocarNumero(null, '2')">2</button>
+    <button type="button" data-tecla="3" onclick="return tocarNumero(null, '3')">3</button>
+    <button type="button" data-tecla="4" onclick="return tocarNumero(null, '4')">4</button>
+    <button type="button" data-tecla="5" onclick="return tocarNumero(null, '5')">5</button>
+    <button type="button" data-tecla="6" onclick="return tocarNumero(null, '6')">6</button>
+    <button type="button" data-tecla="7" onclick="return tocarNumero(null, '7')">7</button>
+    <button type="button" data-tecla="8" onclick="return tocarNumero(null, '8')">8</button>
+    <button type="button" data-tecla="9" onclick="return tocarNumero(null, '9')">9</button>
+    <button type="button" data-tecla="Borrar" onclick="return tocarNumero(null, 'Borrar')" aria-label="Borrar">⌫</button>
+    <button type="button" data-tecla="0" onclick="return tocarNumero(null, '0')">0</button>
+    <button type="button" class="tecla-ok" data-tecla="OK" onclick="return tocarNumero(null, 'OK')">OK</button>
+  </div>
+
+  <script>
+var respuestaActiva = "respuesta";
+
+var verificadores = {
+  respuesta: verificar,
+  "respuesta-rectangulo": verificarRectangulo,
+  "respuesta-total": verificarTotal,
+  "respuesta-l": verificarL,
+  "respuesta-escalera": verificarEscalera,
+  "respuesta-hueco": verificarHueco,
+  "respuesta-doble-hueco": verificarDobleHueco
+};
+
+var visores = {
+  respuesta: "visor-respuesta",
+  "respuesta-rectangulo": "visor-respuesta-rectangulo",
+  "respuesta-total": "visor-respuesta-total",
+  "respuesta-l": "visor-respuesta-l",
+  "respuesta-escalera": "visor-respuesta-escalera",
+  "respuesta-hueco": "visor-respuesta-hueco",
+  "respuesta-doble-hueco": "visor-respuesta-doble-hueco"
+};
+
+var respuestas = {
+  respuesta: "",
+  "respuesta-rectangulo": "",
+  "respuesta-total": "",
+  "respuesta-l": "",
+  "respuesta-escalera": "",
+  "respuesta-hueco": "",
+  "respuesta-doble-hueco": ""
+};
+
+var temporizadorProximo = null;
+var ultimaTecla = "";
+var ultimoToque = 0;
+
+function pasarLuego(funcionProxima) {
+  if (temporizadorProximo) {
+    clearTimeout(temporizadorProximo);
+  }
+
+  temporizadorProximo = setTimeout(funcionProxima, 2000);
+}
+
+function ocultarTeclado() {
+  var teclado = document.getElementById("teclado-numerico");
+
+  if (teclado) {
+    teclado.className = "teclado-numerico oculto";
+  }
+}
+
+function mostrarTeclado() {
+  var teclado = document.getElementById("teclado-numerico");
+
+  if (teclado) {
+    teclado.className = "teclado-numerico";
+  }
+}
+
+function iniciarTeclado() {
+  var estado = document.getElementById("estado-js");
+  var ids = [
+    "respuesta",
+    "respuesta-rectangulo",
+    "respuesta-total",
+    "respuesta-l",
+    "respuesta-escalera",
+    "respuesta-hueco",
+    "respuesta-doble-hueco"
+  ];
+
+  if (estado) {
+    estado.innerHTML = "JavaScript activo";
+    estado.className = "estado-js activo";
+  }
+  for (var j = 0; j < ids.length; j++) {
+    var input = document.getElementById(ids[j]);
+
+    if (input) {
+      input.readOnly = true;
+      input.setAttribute("inputmode", "none");
+      input.setAttribute("tabindex", "-1");
+      input.onfocus = function() {
+        this.blur();
+      };
+      input.onclick = crearSelector(ids[j]);
+      input.onmousedown = crearSelectorSinFoco(ids[j]);
+      input.ontouchstart = crearSelectorSinFoco(ids[j]);
+    }
+  }
+
+  seleccionarRespuesta("respuesta");
+}
+
+function tocarNumero(evento, tecla) {
+  var ahora = new Date().getTime();
+
+  if (evento && evento.preventDefault) {
+    evento.preventDefault();
+  }
+
+  if (tecla == ultimaTecla && ahora - ultimoToque < 250) {
+    return false;
+  }
+
+  ultimaTecla = tecla;
+  ultimoToque = ahora;
+
+  seleccionarRespuestaVisible();
+  tocarTeclaValor(tecla);
+  return false;
+}
+
+function seleccionarRespuestaVisible() {
+  var pares = [
+    ["pantalla-cuadrado", "respuesta"],
+    ["pantalla-rectangulo", "respuesta-rectangulo"],
+    ["pantalla-total", "respuesta-total"],
+    ["pantalla-l", "respuesta-l"],
+    ["pantalla-escalera", "respuesta-escalera"],
+    ["pantalla-hueco", "respuesta-hueco"],
+    ["pantalla-doble-hueco", "respuesta-doble-hueco"]
+  ];
+
+  for (var i = 0; i < pares.length; i++) {
+    var pantalla = document.getElementById(pares[i][0]);
+
+    if (pantalla && pantalla.className.indexOf("oculto") == -1) {
+      seleccionarRespuesta(pares[i][1]);
+      return;
+    }
+  }
+}
+
+function crearSelector(id) {
+  return function() {
+    seleccionarRespuesta(id);
+  };
+}
+
+function crearSelectorSinFoco(id) {
+  return function(evento) {
+    if (evento && evento.preventDefault) {
+      evento.preventDefault();
+    }
+
+    seleccionarRespuesta(id);
+  };
+}
+
+function seleccionarRespuesta(id) {
+  var visorAnterior = document.getElementById(visores[respuestaActiva]);
+  var input = document.getElementById(id);
+  var visor = document.getElementById(visores[id]);
+
+  if (visorAnterior) {
+    visorAnterior.className = visorAnterior.className.replace(" activo", "");
+  }
+
+  respuestaActiva = id;
+
+  if (input && visor) {
+    mostrarTeclado();
+    visor.className = visor.className + " activo";
+    actualizarVisor(id);
+  }
+}
+
+function actualizarVisor(id) {
+  var input = document.getElementById(id);
+  var visor = document.getElementById(visores[id]);
+  var valor = respuestas[id] || "";
+
+  if (!input || !visor) {
+    return;
+  }
+
+  input.value = valor;
+
+  if (valor == "") {
+    visor.innerHTML = "cm²";
+    visor.style.color = "#888";
+  } else {
+    visor.innerHTML = valor;
+    visor.style.color = "#111";
+  }
+}
+
+function tocarTeclaValor(tecla) {
+  var input = document.getElementById(respuestaActiva);
+  var verificarActual = verificadores[respuestaActiva];
+  var valorActual = respuestas[respuestaActiva] || "";
+
+  if (!input) {
+    return;
+  }
+
+  if (tecla == "Borrar") {
+    respuestas[respuestaActiva] = valorActual.slice(0, -1);
+  } else if (tecla == "OK") {
+    if (verificarActual) {
+      verificarActual();
+    }
+    return;
+  } else if (valorActual.length < 4) {
+    respuestas[respuestaActiva] = valorActual + tecla;
+  }
+
+  actualizarVisor(respuestaActiva);
+
+  if (verificarActual) {
+    verificarActual();
+  }
+}
+
+if (typeof document != "undefined") {
+  if (document.readyState == "loading") {
+    document.addEventListener("DOMContentLoaded", iniciarTeclado);
+  } else {
+    iniciarTeclado();
+  }
+}
+
+function verificar() {
+  var respuesta = respuestas.respuesta;
+  var resultado = document.getElementById("resultado");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "16") {
+    resultado.innerHTML = '<div class="correcto">¡Correcto!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarRectangulo);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarRectangulo() {
+  document.getElementById("pantalla-cuadrado").className = "contenedor oculto";
+  document.getElementById("pantalla-rectangulo").className = "contenedor";
+  seleccionarRespuesta("respuesta-rectangulo");
+}
+
+function verificarRectangulo() {
+  var respuesta = respuestas["respuesta-rectangulo"];
+  var resultado = document.getElementById("resultado-rectangulo");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "32") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarTotal);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarTotal() {
+  document.getElementById("pantalla-rectangulo").className = "contenedor oculto";
+  document.getElementById("pantalla-total").className = "contenedor";
+  seleccionarRespuesta("respuesta-total");
+}
+
+function verificarTotal() {
+  var respuesta = respuestas["respuesta-total"];
+  var resultado = document.getElementById("resultado-total");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "48") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarL);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarL() {
+  document.getElementById("pantalla-total").className = "contenedor oculto";
+  document.getElementById("pantalla-l").className = "contenedor";
+  seleccionarRespuesta("respuesta-l");
+}
+
+function verificarL() {
+  var respuesta = respuestas["respuesta-l"];
+  var resultado = document.getElementById("resultado-l");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "64") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarEscalera);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarEscalera() {
+  document.getElementById("pantalla-l").className = "contenedor oculto";
+  document.getElementById("pantalla-escalera").className = "contenedor";
+  seleccionarRespuesta("respuesta-escalera");
+}
+
+function verificarEscalera() {
+  var respuesta = respuestas["respuesta-escalera"];
+  var resultado = document.getElementById("resultado-escalera");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "96") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarHueco);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarHueco() {
+  document.getElementById("pantalla-escalera").className = "contenedor oculto";
+  document.getElementById("pantalla-hueco").className = "contenedor";
+  seleccionarRespuesta("respuesta-hueco");
+}
+
+function verificarHueco() {
+  var respuesta = respuestas["respuesta-hueco"];
+  var resultado = document.getElementById("resultado-hueco");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "80") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarDobleHueco);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarDobleHueco() {
+  document.getElementById("pantalla-hueco").className = "contenedor oculto";
+  document.getElementById("pantalla-doble-hueco").className = "contenedor";
+  seleccionarRespuesta("respuesta-doble-hueco");
+}
+
+function verificarDobleHueco() {
+  var respuesta = respuestas["respuesta-doble-hueco"];
+  var resultado = document.getElementById("resultado-doble-hueco");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "144") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+  </script>
+
+</body>
+</html>
+
