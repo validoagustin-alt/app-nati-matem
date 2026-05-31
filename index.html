@@ -116,6 +116,11 @@ body {
   color: white;
 }
 
+.opcion-primos {
+  background: #7c3aed;
+  color: white;
+}
+
 .opcion-bloqueada {
   background: rgba(255,255,255,0.74);
   color: #7c3aed;
@@ -143,6 +148,96 @@ body {
   margin-top: 4px;
   font-size: 14px;
   line-height: 1.25;
+}
+
+.opciones-primos {
+  margin: 18px auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 9px;
+}
+
+.opciones-primos button,
+.tabla-primos button {
+  margin: 0;
+  border: 0;
+  border-radius: 12px;
+  background: #ede9fe;
+  color: #5b21b6;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(124,58,237,0.14);
+}
+
+.opciones-primos button {
+  min-height: 46px;
+  padding: 8px 0;
+  font-size: 20px;
+}
+
+.opciones-primos button.seleccionado {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  color: white;
+}
+
+.tabla-primos {
+  margin: 16px auto 0;
+  display: grid;
+  gap: 8px;
+}
+
+.fila-primos {
+  display: grid;
+  grid-template-columns: 48px 1fr 92px;
+  gap: 6px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 12px;
+  background: #faf5ff;
+}
+
+.encabezado-primos {
+  background: #ede9fe;
+  color: #5b21b6;
+  font-weight: bold;
+}
+
+.fila-primos > span:first-child {
+  font-size: 22px;
+  font-weight: bold;
+  color: #6d28d9;
+}
+
+.fila-primos span:nth-child(2) {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.tabla-primos button {
+  padding: 7px 8px;
+  font-size: 13px;
+}
+
+.tabla-primos button.seleccionado {
+  background: #7c3aed;
+  color: white;
+}
+
+.fila-primos small {
+  color: #6b7280;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.rango-primos {
+  margin: 16px auto;
+  padding: 12px;
+  border-radius: 14px;
+  background: #f5f3ff;
+  color: #5b21b6;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.6;
 }
 
 h1 {
@@ -700,6 +795,14 @@ button {
       </span>
     </button>
 
+    <button type="button" class="opcion-menu opcion-primos" onclick="mostrarPrimos()">
+      <span class="opcion-icono">🔢</span>
+      <span>
+        <strong>Números primos</strong>
+        <small>Primos, compuestos y desafíos de conteo</small>
+      </span>
+    </button>
+
     <button type="button" class="opcion-menu opcion-bloqueada" disabled>
       <span class="opcion-icono">✨</span>
       <span>
@@ -707,6 +810,193 @@ button {
         <small>Nuevos desafíos para después</small>
       </span>
     </button>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-primos-1">
+    <div class="numero-ejercicio">1</div>
+    <h1>Números primos</h1>
+
+    <p>Marca cuáles de estos números son primos.</p>
+    <p><strong>Recordatorio:</strong> un número primo tiene exactamente 2 divisores: el 1 y él mismo.</p>
+
+    <div class="opciones-primos">
+      <button type="button" onclick="togglePrimo(2)">2</button>
+      <button type="button" onclick="togglePrimo(4)">4</button>
+      <button type="button" onclick="togglePrimo(5)">5</button>
+      <button type="button" onclick="togglePrimo(8)">8</button>
+      <button type="button" onclick="togglePrimo(11)">11</button>
+      <button type="button" onclick="togglePrimo(15)">15</button>
+      <button type="button" onclick="togglePrimo(17)">17</button>
+      <button type="button" onclick="togglePrimo(21)">21</button>
+      <button type="button" onclick="togglePrimo(23)">23</button>
+      <button type="button" onclick="togglePrimo(25)">25</button>
+    </div>
+
+    <div id="resultado-primos-1">Toca los números que son primos.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-primos-2">
+    <div class="numero-ejercicio">2</div>
+    <h1>Primo o compuesto</h1>
+
+    <p>Completa la tabla eligiendo si cada número es primo o compuesto.</p>
+    <p><strong>Ejemplo:</strong> 9 es compuesto, porque se puede dividir por 1, 3 y 9.</p>
+
+    <div class="tabla-primos">
+      <div class="fila-primos encabezado-primos">
+        <span>Número</span>
+        <span>Elige</span>
+        <span>Ayuda</span>
+      </div>
+
+      <div class="fila-primos" data-numero="7">
+        <span>7</span>
+        <span><button type="button" onclick="elegirTipoPrimo(7, 'primo')">Primo</button><button type="button" onclick="elegirTipoPrimo(7, 'compuesto')">Compuesto</button></span>
+        <small id="ayuda-7"></small>
+      </div>
+
+      <div class="fila-primos" data-numero="9">
+        <span>9</span>
+        <span><button type="button" onclick="elegirTipoPrimo(9, 'primo')">Primo</button><button type="button" onclick="elegirTipoPrimo(9, 'compuesto')">Compuesto</button></span>
+        <small id="ayuda-9"></small>
+      </div>
+
+      <div class="fila-primos" data-numero="13">
+        <span>13</span>
+        <span><button type="button" onclick="elegirTipoPrimo(13, 'primo')">Primo</button><button type="button" onclick="elegirTipoPrimo(13, 'compuesto')">Compuesto</button></span>
+        <small id="ayuda-13"></small>
+      </div>
+
+      <div class="fila-primos" data-numero="18">
+        <span>18</span>
+        <span><button type="button" onclick="elegirTipoPrimo(18, 'primo')">Primo</button><button type="button" onclick="elegirTipoPrimo(18, 'compuesto')">Compuesto</button></span>
+        <small id="ayuda-18"></small>
+      </div>
+
+      <div class="fila-primos" data-numero="29">
+        <span>29</span>
+        <span><button type="button" onclick="elegirTipoPrimo(29, 'primo')">Primo</button><button type="button" onclick="elegirTipoPrimo(29, 'compuesto')">Compuesto</button></span>
+        <small id="ayuda-29"></small>
+      </div>
+    </div>
+
+    <div id="resultado-primos-2">Elige una opción en cada fila.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-primos-3">
+    <div class="numero-ejercicio">3</div>
+    <h1>Desafío de primos</h1>
+
+    <p>Encuentra todos los números primos entre <strong>30</strong> y <strong>50</strong>.</p>
+    <p><strong>Pista:</strong> prueba si se puede dividir por 2, 3, 5 o 7.</p>
+    <p>Después responde: ¿cuántos números primos encontraste?</p>
+
+    <div class="rango-primos">30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50</div>
+
+    <input
+      id="respuesta-primos-cantidad"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cantidad"
+      oninput="verificarPrimosCantidad()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-primos-cantidad">?</div>
+
+    <div id="resultado-primos-3">Escribe cuántos primos hay.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-primos-4">
+    <div class="numero-ejercicio">4</div>
+    <h1>Primos más grandes</h1>
+
+    <p>Marca cuáles de estos números son primos.</p>
+    <p><strong>Pista:</strong> revisa si se pueden dividir por 2, 3, 5, 7 u 11.</p>
+
+    <div class="opciones-primos">
+      <button type="button" onclick="togglePrimoAvanzado(31)">31</button>
+      <button type="button" onclick="togglePrimoAvanzado(33)">33</button>
+      <button type="button" onclick="togglePrimoAvanzado(37)">37</button>
+      <button type="button" onclick="togglePrimoAvanzado(39)">39</button>
+      <button type="button" onclick="togglePrimoAvanzado(41)">41</button>
+      <button type="button" onclick="togglePrimoAvanzado(44)">44</button>
+      <button type="button" onclick="togglePrimoAvanzado(47)">47</button>
+      <button type="button" onclick="togglePrimoAvanzado(49)">49</button>
+      <button type="button" onclick="togglePrimoAvanzado(53)">53</button>
+      <button type="button" onclick="togglePrimoAvanzado(55)">55</button>
+    </div>
+
+    <div id="resultado-primos-4">Toca los números que son primos.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-primos-5">
+    <div class="numero-ejercicio">5</div>
+    <h1>Tabla difícil</h1>
+
+    <p>Elige si cada número es primo o compuesto.</p>
+
+    <div class="tabla-primos">
+      <div class="fila-primos encabezado-primos">
+        <span>Número</span>
+        <span>Elige</span>
+        <span>Ayuda</span>
+      </div>
+
+      <div class="fila-primos" data-numero-avanzado="51">
+        <span>51</span>
+        <span><button type="button" onclick="elegirTipoPrimoAvanzado(51, 'primo')">Primo</button><button type="button" onclick="elegirTipoPrimoAvanzado(51, 'compuesto')">Compuesto</button></span>
+        <small id="ayuda-avanzado-51"></small>
+      </div>
+
+      <div class="fila-primos" data-numero-avanzado="59">
+        <span>59</span>
+        <span><button type="button" onclick="elegirTipoPrimoAvanzado(59, 'primo')">Primo</button><button type="button" onclick="elegirTipoPrimoAvanzado(59, 'compuesto')">Compuesto</button></span>
+        <small id="ayuda-avanzado-59"></small>
+      </div>
+
+      <div class="fila-primos" data-numero-avanzado="63">
+        <span>63</span>
+        <span><button type="button" onclick="elegirTipoPrimoAvanzado(63, 'primo')">Primo</button><button type="button" onclick="elegirTipoPrimoAvanzado(63, 'compuesto')">Compuesto</button></span>
+        <small id="ayuda-avanzado-63"></small>
+      </div>
+
+      <div class="fila-primos" data-numero-avanzado="67">
+        <span>67</span>
+        <span><button type="button" onclick="elegirTipoPrimoAvanzado(67, 'primo')">Primo</button><button type="button" onclick="elegirTipoPrimoAvanzado(67, 'compuesto')">Compuesto</button></span>
+        <small id="ayuda-avanzado-67"></small>
+      </div>
+
+      <div class="fila-primos" data-numero-avanzado="77">
+        <span>77</span>
+        <span><button type="button" onclick="elegirTipoPrimoAvanzado(77, 'primo')">Primo</button><button type="button" onclick="elegirTipoPrimoAvanzado(77, 'compuesto')">Compuesto</button></span>
+        <small id="ayuda-avanzado-77"></small>
+      </div>
+    </div>
+
+    <div id="resultado-primos-5">Elige una opción en cada fila.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-primos-6">
+    <div class="numero-ejercicio">6</div>
+    <h1>Desafío final</h1>
+
+    <p>Encuentra todos los números primos entre <strong>50</strong> y <strong>80</strong>.</p>
+    <p><strong>Pista:</strong> prueba dividir por 2, 3, 5 y 7. Si no se puede, puede ser primo.</p>
+    <p>¿Cuántos números primos encontraste?</p>
+
+    <div class="rango-primos">50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80</div>
+
+    <input
+      id="respuesta-primos-final"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cantidad"
+      oninput="verificarPrimosFinal()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-primos-final">?</div>
+
+    <div id="resultado-primos-6">Escribe cuántos primos hay.</div>
   </div>
 
   <div class="contenedor oculto" id="pantalla-cuadrado">
@@ -1123,7 +1413,9 @@ var verificadores = {
   "respuesta-escalera-grande": verificarEscaleraGrande,
   "respuesta-marco": verificarMarco,
   "respuesta-rectangulo-recorte": verificarRectanguloRecorte,
-  "respuesta-mosaico": verificarMosaico
+  "respuesta-mosaico": verificarMosaico,
+  "respuesta-primos-cantidad": verificarPrimosCantidad,
+  "respuesta-primos-final": verificarPrimosFinal
 };
 
 var visores = {
@@ -1137,7 +1429,9 @@ var visores = {
   "respuesta-escalera-grande": "visor-respuesta-escalera-grande",
   "respuesta-marco": "visor-respuesta-marco",
   "respuesta-rectangulo-recorte": "visor-respuesta-rectangulo-recorte",
-  "respuesta-mosaico": "visor-respuesta-mosaico"
+  "respuesta-mosaico": "visor-respuesta-mosaico",
+  "respuesta-primos-cantidad": "visor-respuesta-primos-cantidad",
+  "respuesta-primos-final": "visor-respuesta-primos-final"
 };
 
 var respuestas = {
@@ -1151,12 +1445,23 @@ var respuestas = {
   "respuesta-escalera-grande": "",
   "respuesta-marco": "",
   "respuesta-rectangulo-recorte": "",
-  "respuesta-mosaico": ""
+  "respuesta-mosaico": "",
+  "respuesta-primos-cantidad": "",
+  "respuesta-primos-final": ""
+};
+
+var placeholders = {
+  "respuesta-primos-cantidad": "?",
+  "respuesta-primos-final": "?"
 };
 
 var temporizadorProximo = null;
 var ultimaTecla = "";
 var ultimoToque = 0;
+var primosSeleccionados = {};
+var primosAvanzadosSeleccionados = {};
+var tablaPrimos = {};
+var tablaPrimosAvanzada = {};
 
 function pasarLuego(funcionProxima) {
   if (temporizadorProximo) {
@@ -1195,7 +1500,9 @@ function iniciarTeclado() {
     "respuesta-escalera-grande",
     "respuesta-marco",
     "respuesta-rectangulo-recorte",
-    "respuesta-mosaico"
+    "respuesta-mosaico",
+    "respuesta-primos-cantidad",
+    "respuesta-primos-final"
   ];
 
   if (estado) {
@@ -1240,6 +1547,135 @@ function mostrarArea() {
   seleccionarRespuesta("respuesta");
 }
 
+function mostrarPrimos() {
+  var menu = document.getElementById("pantalla-menu");
+  var primeraPantalla = document.getElementById("pantalla-primos-1");
+
+  if (menu) {
+    menu.className = "menu-principal oculto";
+  }
+
+  if (primeraPantalla) {
+    primeraPantalla.className = "contenedor";
+  }
+
+  ocultarTeclado();
+}
+
+function togglePrimo(numero) {
+  var boton = document.querySelector("#pantalla-primos-1 button[onclick=\"togglePrimo(" + numero + ")\"]");
+
+  if (primosSeleccionados[numero]) {
+    delete primosSeleccionados[numero];
+    if (boton) {
+      boton.className = "";
+    }
+  } else {
+    primosSeleccionados[numero] = true;
+    if (boton) {
+      boton.className = "seleccionado";
+    }
+  }
+
+  verificarPrimosSeleccionados();
+}
+
+function verificarPrimosSeleccionados() {
+  var correctos = ["2", "5", "11", "17", "23"];
+  var elegidos = Object.keys(primosSeleccionados).sort(function(a, b) {
+    return Number(a) - Number(b);
+  });
+  var resultado = document.getElementById("resultado-primos-1");
+
+  if (elegidos.length == 0) {
+    resultado.innerHTML = "Toca los números que son primos.";
+    return;
+  }
+
+  if (elegidos.join(",") == correctos.join(",")) {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    pasarLuego(mostrarPrimosTabla);
+  } else {
+    resultado.innerHTML = "Sigue pensando: algunos marcados no son primos, o falta alguno.";
+  }
+}
+
+function mostrarPrimosTabla() {
+  document.getElementById("pantalla-primos-1").className = "contenedor oculto";
+  document.getElementById("pantalla-primos-2").className = "contenedor";
+  ocultarTeclado();
+}
+
+function elegirTipoPrimo(numero, tipo) {
+  var fila = document.querySelector("#pantalla-primos-2 [data-numero=\"" + numero + "\"]");
+  var botones = fila ? fila.getElementsByTagName("button") : [];
+
+  tablaPrimos[numero] = tipo;
+
+  for (var i = 0; i < botones.length; i++) {
+    botones[i].className = "";
+  }
+
+  for (var j = 0; j < botones.length; j++) {
+    if (botones[j].innerHTML.toLowerCase() == tipo) {
+      botones[j].className = "seleccionado";
+    }
+  }
+
+  mostrarAyudaPrimo(numero, tipo);
+  verificarTablaPrimos();
+}
+
+function mostrarAyudaPrimo(numero, tipo) {
+  var ayudas = {
+    7: "1 y 7",
+    9: "1, 3 y 9",
+    13: "1 y 13",
+    18: "1, 2, 3, 6, 9 y 18",
+    29: "1 y 29"
+  };
+  var ayuda = document.getElementById("ayuda-" + numero);
+
+  if (ayuda) {
+    ayuda.innerHTML = ayudas[numero];
+  }
+}
+
+function verificarTablaPrimos() {
+  var correctos = {
+    7: "primo",
+    9: "compuesto",
+    13: "primo",
+    18: "compuesto",
+    29: "primo"
+  };
+  var numeros = [7, 9, 13, 18, 29];
+  var resultado = document.getElementById("resultado-primos-2");
+
+  for (var i = 0; i < numeros.length; i++) {
+    if (!tablaPrimos[numeros[i]]) {
+      resultado.innerHTML = "Elige una opción en cada fila.";
+      return;
+    }
+  }
+
+  for (var j = 0; j < numeros.length; j++) {
+    if (tablaPrimos[numeros[j]] != correctos[numeros[j]]) {
+      resultado.innerHTML = '<div class="incorrecto">Revisa la tabla con calma.</div>';
+      return;
+    }
+  }
+
+  resultado.innerHTML = '<div class="correcto">Isso ai Nati!</div><div class="medalla">🏅</div>';
+  pasarLuego(mostrarPrimosDesafio);
+}
+
+function mostrarPrimosDesafio() {
+  document.getElementById("pantalla-primos-2").className = "contenedor oculto";
+  document.getElementById("pantalla-primos-3").className = "contenedor";
+  seleccionarRespuesta("respuesta-primos-cantidad");
+}
+
 function tocarNumero(evento, tecla) {
   var ahora = new Date().getTime();
 
@@ -1271,7 +1707,9 @@ function seleccionarRespuestaVisible() {
     ["pantalla-escalera-grande", "respuesta-escalera-grande"],
     ["pantalla-marco", "respuesta-marco"],
     ["pantalla-rectangulo-recorte", "respuesta-rectangulo-recorte"],
-    ["pantalla-mosaico", "respuesta-mosaico"]
+    ["pantalla-mosaico", "respuesta-mosaico"],
+    ["pantalla-primos-3", "respuesta-primos-cantidad"],
+    ["pantalla-primos-6", "respuesta-primos-final"]
   ];
 
   for (var i = 0; i < pares.length; i++) {
@@ -1330,7 +1768,7 @@ function actualizarVisor(id) {
   input.value = valor;
 
   if (valor == "") {
-    visor.innerHTML = "cm²";
+    visor.innerHTML = placeholders[id] || "cm²";
     visor.style.color = "#888";
   } else {
     visor.innerHTML = valor;
@@ -1630,10 +2068,168 @@ function verificarMosaico() {
   }
 }
 
+function verificarPrimosCantidad() {
+  var respuesta = respuestas["respuesta-primos-cantidad"];
+  var resultado = document.getElementById("resultado-primos-3");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe cuántos primos hay.";
+    return;
+  }
+
+  if (respuesta == "5") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarPrimosAvanzados);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez. Pista: son 31, 37, 41, 43 y 47.</div>';
+  }
+}
+
+function mostrarPrimosAvanzados() {
+  document.getElementById("pantalla-primos-3").className = "contenedor oculto";
+  document.getElementById("pantalla-primos-4").className = "contenedor";
+  ocultarTeclado();
+}
+
+function togglePrimoAvanzado(numero) {
+  var boton = document.querySelector("#pantalla-primos-4 button[onclick=\"togglePrimoAvanzado(" + numero + ")\"]");
+
+  if (primosAvanzadosSeleccionados[numero]) {
+    delete primosAvanzadosSeleccionados[numero];
+    if (boton) {
+      boton.className = "";
+    }
+  } else {
+    primosAvanzadosSeleccionados[numero] = true;
+    if (boton) {
+      boton.className = "seleccionado";
+    }
+  }
+
+  verificarPrimosAvanzados();
+}
+
+function verificarPrimosAvanzados() {
+  var correctos = ["31", "37", "41", "47", "53"];
+  var elegidos = Object.keys(primosAvanzadosSeleccionados).sort(function(a, b) {
+    return Number(a) - Number(b);
+  });
+  var resultado = document.getElementById("resultado-primos-4");
+
+  if (elegidos.length == 0) {
+    resultado.innerHTML = "Toca los números que son primos.";
+    return;
+  }
+
+  if (elegidos.join(",") == correctos.join(",")) {
+    resultado.innerHTML = '<div class="correcto">Isso ai Nati!</div><div class="medalla">🏅</div>';
+    pasarLuego(mostrarPrimosTablaAvanzada);
+  } else {
+    resultado.innerHTML = "Revisa con calma: hay números compuestos escondidos.";
+  }
+}
+
+function mostrarPrimosTablaAvanzada() {
+  document.getElementById("pantalla-primos-4").className = "contenedor oculto";
+  document.getElementById("pantalla-primos-5").className = "contenedor";
+  ocultarTeclado();
+}
+
+function elegirTipoPrimoAvanzado(numero, tipo) {
+  var fila = document.querySelector("#pantalla-primos-5 [data-numero-avanzado=\"" + numero + "\"]");
+  var botones = fila ? fila.getElementsByTagName("button") : [];
+
+  tablaPrimosAvanzada[numero] = tipo;
+
+  for (var i = 0; i < botones.length; i++) {
+    botones[i].className = "";
+  }
+
+  for (var j = 0; j < botones.length; j++) {
+    if (botones[j].innerHTML.toLowerCase() == tipo) {
+      botones[j].className = "seleccionado";
+    }
+  }
+
+  mostrarAyudaPrimoAvanzado(numero);
+  verificarTablaPrimosAvanzada();
+}
+
+function mostrarAyudaPrimoAvanzado(numero) {
+  var ayudas = {
+    51: "3 x 17",
+    59: "1 y 59",
+    63: "7 x 9",
+    67: "1 y 67",
+    77: "7 x 11"
+  };
+  var ayuda = document.getElementById("ayuda-avanzado-" + numero);
+
+  if (ayuda) {
+    ayuda.innerHTML = ayudas[numero];
+  }
+}
+
+function verificarTablaPrimosAvanzada() {
+  var correctos = {
+    51: "compuesto",
+    59: "primo",
+    63: "compuesto",
+    67: "primo",
+    77: "compuesto"
+  };
+  var numeros = [51, 59, 63, 67, 77];
+  var resultado = document.getElementById("resultado-primos-5");
+
+  for (var i = 0; i < numeros.length; i++) {
+    if (!tablaPrimosAvanzada[numeros[i]]) {
+      resultado.innerHTML = "Elige una opción en cada fila.";
+      return;
+    }
+  }
+
+  for (var j = 0; j < numeros.length; j++) {
+    if (tablaPrimosAvanzada[numeros[j]] != correctos[numeros[j]]) {
+      resultado.innerHTML = '<div class="incorrecto">Hay una fila con pegadinha.</div>';
+      return;
+    }
+  }
+
+  resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+  pasarLuego(mostrarPrimosFinal);
+}
+
+function mostrarPrimosFinal() {
+  document.getElementById("pantalla-primos-5").className = "contenedor oculto";
+  document.getElementById("pantalla-primos-6").className = "contenedor";
+  seleccionarRespuesta("respuesta-primos-final");
+}
+
+function verificarPrimosFinal() {
+  var respuesta = respuestas["respuesta-primos-final"];
+  var resultado = document.getElementById("resultado-primos-6");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe cuántos primos hay.";
+    return;
+  }
+
+  if (respuesta == "7") {
+    resultado.innerHTML = '<div class="correcto">Haz ganado!!!</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
+    ocultarTeclado();
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez. Los primos son 53, 59, 61, 67, 71, 73 y 79.</div>';
+  }
+}
+
   </script>
 
 </body>
 </html>
+
+
+
 
 
 
