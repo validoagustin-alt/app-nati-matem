@@ -14,12 +14,27 @@ body {
 }
 
 .contenedor {
+  position: relative;
   max-width: 380px;
   margin: 0 auto;
   background: white;
   padding: 24px;
   border-radius: 18px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+
+.numero-ejercicio {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #007aff;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 28px;
 }
 
 .estado-js {
@@ -297,6 +312,127 @@ p {
   margin-bottom: 8px;
 }
 
+.figura-escalera-grande,
+.figura-mosaico {
+  margin: 18px auto;
+  display: grid;
+  justify-content: center;
+}
+
+.figura-escalera-grande {
+  width: 224px;
+  grid-template-columns: repeat(4, 56px);
+  grid-template-rows: repeat(4, 56px);
+}
+
+.figura-mosaico {
+  width: 260px;
+  grid-template-columns: repeat(5, 52px);
+  grid-template-rows: repeat(4, 52px);
+}
+
+.figura-marco-con-medidas,
+.figura-recorte-con-medidas,
+.figura-final-con-medidas {
+  margin: 18px auto;
+  display: grid;
+  grid-template-columns: 42px auto;
+  grid-template-rows: auto auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.figura-marco,
+.figura-recorte,
+.figura-final {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+}
+
+.figura-marco {
+  grid-template-columns: repeat(4, 52px);
+  grid-template-rows: repeat(3, 52px);
+}
+
+.figura-recorte {
+  grid-template-columns: repeat(5, 50px);
+  grid-template-rows: repeat(3, 50px);
+}
+
+.figura-final {
+  grid-template-columns: repeat(6, 44px);
+  grid-template-rows: repeat(4, 44px);
+}
+
+.figura-escalera-grande .bloque,
+.figura-escalera-grande .bloque-medida,
+.figura-escalera-grande .bloque-vacio,
+.figura-escalera-grande .hueco {
+  width: 56px;
+  height: 56px;
+}
+
+.figura-marco .bloque,
+.figura-marco .bloque-medida,
+.figura-marco .bloque-vacio,
+.figura-marco .hueco,
+.figura-mosaico .bloque,
+.figura-mosaico .bloque-medida,
+.figura-mosaico .bloque-vacio,
+.figura-mosaico .hueco {
+  width: 52px;
+  height: 52px;
+}
+
+.figura-recorte .bloque,
+.figura-recorte .bloque-medida,
+.figura-recorte .bloque-vacio,
+.figura-recorte .hueco {
+  width: 50px;
+  height: 50px;
+}
+
+.figura-final .bloque,
+.figura-final .bloque-medida,
+.figura-final .bloque-vacio,
+.figura-final .hueco {
+  width: 44px;
+  height: 44px;
+}
+
+.hueco-ancho {
+  grid-column: span 2;
+  width: auto;
+}
+
+.medida-marco-vertical,
+.medida-marco-superior,
+.medida-recorte-vertical,
+.medida-recorte-superior,
+.medida-final-vertical,
+.medida-final-superior {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.medida-marco-vertical,
+.medida-recorte-vertical,
+.medida-final-vertical {
+  grid-column: 1;
+  grid-row: 2;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.medida-marco-superior,
+.medida-recorte-superior,
+.medida-final-superior {
+  grid-column: 2;
+  grid-row: 1;
+  margin-bottom: 8px;
+}
+
 input {
   width: 140px;
   font-size: 28px;
@@ -390,7 +526,12 @@ button {
 #resultado-l,
 #resultado-escalera,
 #resultado-hueco,
-#resultado-doble-hueco {
+#resultado-doble-hueco,
+#resultado-escalera-grande,
+#resultado-marco,
+#resultado-rectangulo-recorte,
+#resultado-mosaico,
+#resultado-desafio-final {
   margin-top: 24px;
   font-size: 24px;
   font-weight: bold;
@@ -400,6 +541,18 @@ button {
 .medalla {
   font-size: 90px;
   margin-top: 10px;
+}
+
+.copa-final {
+  font-size: 96px;
+  margin-top: 10px;
+  text-shadow: 0 4px 10px rgba(255,193,7,0.45);
+}
+
+.brillo-final {
+  font-size: 28px;
+  margin-top: 6px;
+  color: #f59e0b;
 }
 
 .correcto {
@@ -422,6 +575,7 @@ button {
   <div class="estado-js" id="estado-js">JavaScript no activo</div>
 
   <div class="contenedor" id="pantalla-cuadrado">
+    <div class="numero-ejercicio">1</div>
     <h1>Área del cuadrado</h1>
 
     <p>El lado del cuadrado mide <strong>4 cm</strong>.</p>
@@ -440,14 +594,11 @@ button {
     >
     <div class="visor-respuesta" id="visor-respuesta">cm²</div>
 
-    <br>
-
-    <button type="button" onclick="verificar()">Responder</button>
-
     <div id="resultado">Escribe tu respuesta.</div>
   </div>
 
   <div class="contenedor oculto" id="pantalla-rectangulo">
+    <div class="numero-ejercicio">2</div>
     <h1>Área del rectángulo</h1>
 
     <p>El rectángulo mide <strong>4 cm</strong> de lado y <strong>8 cm</strong> de lado.</p>
@@ -470,14 +621,11 @@ button {
     >
     <div class="visor-respuesta" id="visor-respuesta-rectangulo">cm²</div>
 
-    <br>
-
-    <button type="button" onclick="verificarRectangulo()">Responder</button>
-
     <div id="resultado-rectangulo">Escribe tu respuesta.</div>
   </div>
 
   <div class="contenedor oculto" id="pantalla-total">
+    <div class="numero-ejercicio">3</div>
     <h1>Área total</h1>
 
     <p>Calcula el área total de la figura.</p>
@@ -500,14 +648,11 @@ button {
     >
     <div class="visor-respuesta" id="visor-respuesta-total">cm²</div>
 
-    <br>
-
-    <button type="button" onclick="verificarTotal()">Responder</button>
-
     <div id="resultado-total">Escribe tu respuesta.</div>
   </div>
 
   <div class="contenedor oculto" id="pantalla-l">
+    <div class="numero-ejercicio">4</div>
     <h1>Área total</h1>
 
     <p>Calcula el área total de esta figura.</p>
@@ -534,14 +679,11 @@ button {
     >
     <div class="visor-respuesta" id="visor-respuesta-l">cm²</div>
 
-    <br>
-
-    <button type="button" onclick="verificarL()">Responder</button>
-
     <div id="resultado-l">Escribe tu respuesta.</div>
   </div>
 
   <div class="contenedor oculto" id="pantalla-escalera">
+    <div class="numero-ejercicio">5</div>
     <h1>Área total</h1>
 
     <p>Cada cuadradito tiene lado <strong>4 cm</strong>.</p>
@@ -570,14 +712,11 @@ button {
     >
     <div class="visor-respuesta" id="visor-respuesta-escalera">cm²</div>
 
-    <br>
-
-    <button type="button" onclick="verificarEscalera()">Responder</button>
-
     <div id="resultado-escalera">Escribe tu respuesta.</div>
   </div>
 
   <div class="contenedor oculto" id="pantalla-hueco">
+    <div class="numero-ejercicio">6</div>
     <h1>Área total</h1>
 
     <p>Calcula el área de la figura con el hueco.</p>
@@ -607,17 +746,15 @@ button {
     >
     <div class="visor-respuesta" id="visor-respuesta-hueco">cm²</div>
 
-    <br>
-
-    <button type="button" onclick="verificarHueco()">Responder</button>
-
     <div id="resultado-hueco">Escribe tu respuesta.</div>
   </div>
 
   <div class="contenedor oculto" id="pantalla-doble-hueco">
+    <div class="numero-ejercicio">7</div>
     <h1>Área total</h1>
 
-    <p>Calcula el área de la figura con dos huecos.</p>
+    <p>La figura completa mide <strong>16 cm</strong> por <strong>12 cm</strong>. Cada hueco blanco mide <strong>4 cm</strong> por <strong>4 cm</strong>. Calcula solo el área azul.</p>
+    <p>Nati, este tem pegadinha...</p>
 
     <div class="figura-doble-con-medidas">
       <div class="medida-doble-vertical">12 cm</div>
@@ -627,6 +764,7 @@ button {
         <div class="bloque"></div>
         <div class="hueco">4 cm</div>
         <div class="hueco">4 cm</div>
+        <div class="bloque"></div>
         <div class="bloque"></div>
         <div class="bloque"></div>
         <div class="bloque"></div>
@@ -650,11 +788,223 @@ button {
     >
     <div class="visor-respuesta" id="visor-respuesta-doble-hueco">cm²</div>
 
-    <br>
-
-    <button type="button" onclick="verificarDobleHueco()">Responder</button>
-
     <div id="resultado-doble-hueco">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-escalera-grande">
+    <div class="numero-ejercicio">8</div>
+    <h1>Área total</h1>
+
+    <p>Cada cuadradito tiene lado <strong>4 cm</strong>.</p>
+
+    <div class="figura-escalera-grande">
+      <div class="bloque bloque-medida">4 cm</div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque-vacio"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-escalera-grande"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarEscaleraGrande()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-escalera-grande">cm²</div>
+
+    <div id="resultado-escalera-grande">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-marco">
+    <div class="numero-ejercicio">9</div>
+    <h1>Área total</h1>
+
+    <p>Calcula el área de la figura con huecos.</p>
+
+    <div class="figura-marco-con-medidas">
+      <div class="medida-marco-vertical">12 cm</div>
+      <div class="medida-marco-superior">16 cm</div>
+      <div class="figura-marco">
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="hueco">4 cm</div>
+        <div class="hueco">4 cm</div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+      </div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-marco"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarMarco()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-marco">cm²</div>
+
+    <div id="resultado-marco">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-rectangulo-recorte">
+    <div class="numero-ejercicio">10</div>
+    <h1>Área total</h1>
+
+    <p>Resta el hueco blanco al rectángulo grande.</p>
+
+    <div class="figura-recorte-con-medidas">
+      <div class="medida-recorte-vertical">12 cm</div>
+      <div class="medida-recorte-superior">20 cm</div>
+      <div class="figura-recorte">
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="hueco hueco-ancho">8 x 4</div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+      </div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-rectangulo-recorte"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarRectanguloRecorte()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-rectangulo-recorte">cm²</div>
+
+    <div id="resultado-rectangulo-recorte">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-mosaico">
+    <div class="numero-ejercicio">11</div>
+    <h1>Área total</h1>
+
+    <p>Cada cuadradito tiene lado <strong>4 cm</strong>. Cuenta solo los azules.</p>
+
+    <div class="figura-mosaico">
+      <div class="bloque bloque-medida">4 cm</div>
+      <div class="bloque"></div>
+      <div class="hueco"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="hueco"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="hueco"></div>
+      <div class="bloque"></div>
+      <div class="hueco"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="bloque"></div>
+      <div class="hueco"></div>
+      <div class="bloque"></div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-mosaico"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarMosaico()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-mosaico">cm²</div>
+
+    <div id="resultado-mosaico">Escribe tu respuesta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-desafio-final">
+    <div class="numero-ejercicio">12</div>
+    <h1>Desafío final</h1>
+
+    <p>Calcula el área azul. Resta los dos huecos.</p>
+
+    <div class="figura-final-con-medidas">
+      <div class="medida-final-vertical">16 cm</div>
+      <div class="medida-final-superior">24 cm</div>
+      <div class="figura-final">
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="hueco hueco-ancho">8 x 4</div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="hueco hueco-ancho">8 x 4</div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+        <div class="bloque"></div>
+      </div>
+    </div>
+
+    <p>¿Cuál es el área total?</p>
+
+    <input
+      id="respuesta-desafio-final"
+      type="text"
+      inputmode="none"
+      readonly
+      placeholder="cm²"
+      oninput="verificarDesafioFinal()"
+    >
+    <div class="visor-respuesta" id="visor-respuesta-desafio-final">cm²</div>
+
+    <div id="resultado-desafio-final">Escribe tu respuesta.</div>
   </div>
 
   <div class="teclado-numerico" id="teclado-numerico">
@@ -682,7 +1032,12 @@ var verificadores = {
   "respuesta-l": verificarL,
   "respuesta-escalera": verificarEscalera,
   "respuesta-hueco": verificarHueco,
-  "respuesta-doble-hueco": verificarDobleHueco
+  "respuesta-doble-hueco": verificarDobleHueco,
+  "respuesta-escalera-grande": verificarEscaleraGrande,
+  "respuesta-marco": verificarMarco,
+  "respuesta-rectangulo-recorte": verificarRectanguloRecorte,
+  "respuesta-mosaico": verificarMosaico,
+  "respuesta-desafio-final": verificarDesafioFinal
 };
 
 var visores = {
@@ -692,7 +1047,12 @@ var visores = {
   "respuesta-l": "visor-respuesta-l",
   "respuesta-escalera": "visor-respuesta-escalera",
   "respuesta-hueco": "visor-respuesta-hueco",
-  "respuesta-doble-hueco": "visor-respuesta-doble-hueco"
+  "respuesta-doble-hueco": "visor-respuesta-doble-hueco",
+  "respuesta-escalera-grande": "visor-respuesta-escalera-grande",
+  "respuesta-marco": "visor-respuesta-marco",
+  "respuesta-rectangulo-recorte": "visor-respuesta-rectangulo-recorte",
+  "respuesta-mosaico": "visor-respuesta-mosaico",
+  "respuesta-desafio-final": "visor-respuesta-desafio-final"
 };
 
 var respuestas = {
@@ -702,7 +1062,12 @@ var respuestas = {
   "respuesta-l": "",
   "respuesta-escalera": "",
   "respuesta-hueco": "",
-  "respuesta-doble-hueco": ""
+  "respuesta-doble-hueco": "",
+  "respuesta-escalera-grande": "",
+  "respuesta-marco": "",
+  "respuesta-rectangulo-recorte": "",
+  "respuesta-mosaico": "",
+  "respuesta-desafio-final": ""
 };
 
 var temporizadorProximo = null;
@@ -742,7 +1107,12 @@ function iniciarTeclado() {
     "respuesta-l",
     "respuesta-escalera",
     "respuesta-hueco",
-    "respuesta-doble-hueco"
+    "respuesta-doble-hueco",
+    "respuesta-escalera-grande",
+    "respuesta-marco",
+    "respuesta-rectangulo-recorte",
+    "respuesta-mosaico",
+    "respuesta-desafio-final"
   ];
 
   if (estado) {
@@ -795,7 +1165,12 @@ function seleccionarRespuestaVisible() {
     ["pantalla-l", "respuesta-l"],
     ["pantalla-escalera", "respuesta-escalera"],
     ["pantalla-hueco", "respuesta-hueco"],
-    ["pantalla-doble-hueco", "respuesta-doble-hueco"]
+    ["pantalla-doble-hueco", "respuesta-doble-hueco"],
+    ["pantalla-escalera-grande", "respuesta-escalera-grande"],
+    ["pantalla-marco", "respuesta-marco"],
+    ["pantalla-rectangulo-recorte", "respuesta-rectangulo-recorte"],
+    ["pantalla-mosaico", "respuesta-mosaico"],
+    ["pantalla-desafio-final", "respuesta-desafio-final"]
   ];
 
   for (var i = 0; i < pares.length; i++) {
@@ -979,7 +1354,7 @@ function verificarL() {
   }
 
   if (respuesta == "64") {
-    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    resultado.innerHTML = '<div class="correcto">Isso ai Nati!</div><div class="medalla">🏅</div>';
     ocultarTeclado();
     pasarLuego(mostrarEscalera);
   } else {
@@ -1053,6 +1428,126 @@ function verificarDobleHueco() {
   if (respuesta == "144") {
     resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
     ocultarTeclado();
+    pasarLuego(mostrarEscaleraGrande);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarEscaleraGrande() {
+  document.getElementById("pantalla-doble-hueco").className = "contenedor oculto";
+  document.getElementById("pantalla-escalera-grande").className = "contenedor";
+  seleccionarRespuesta("respuesta-escalera-grande");
+}
+
+function verificarEscaleraGrande() {
+  var respuesta = respuestas["respuesta-escalera-grande"];
+  var resultado = document.getElementById("resultado-escalera-grande");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "160") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarMarco);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarMarco() {
+  document.getElementById("pantalla-escalera-grande").className = "contenedor oculto";
+  document.getElementById("pantalla-marco").className = "contenedor";
+  seleccionarRespuesta("respuesta-marco");
+}
+
+function verificarMarco() {
+  var respuesta = respuestas["respuesta-marco"];
+  var resultado = document.getElementById("resultado-marco");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "160") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarRectanguloRecorte);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarRectanguloRecorte() {
+  document.getElementById("pantalla-marco").className = "contenedor oculto";
+  document.getElementById("pantalla-rectangulo-recorte").className = "contenedor";
+  seleccionarRespuesta("respuesta-rectangulo-recorte");
+}
+
+function verificarRectanguloRecorte() {
+  var respuesta = respuestas["respuesta-rectangulo-recorte"];
+  var resultado = document.getElementById("resultado-rectangulo-recorte");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "208") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarMosaico);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarMosaico() {
+  document.getElementById("pantalla-rectangulo-recorte").className = "contenedor oculto";
+  document.getElementById("pantalla-mosaico").className = "contenedor";
+  seleccionarRespuesta("respuesta-mosaico");
+}
+
+function verificarMosaico() {
+  var respuesta = respuestas["respuesta-mosaico"];
+  var resultado = document.getElementById("resultado-mosaico");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "240") {
+    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarDesafioFinal);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+  }
+}
+
+function mostrarDesafioFinal() {
+  document.getElementById("pantalla-mosaico").className = "contenedor oculto";
+  document.getElementById("pantalla-desafio-final").className = "contenedor";
+  seleccionarRespuesta("respuesta-desafio-final");
+}
+
+function verificarDesafioFinal() {
+  var respuesta = respuestas["respuesta-desafio-final"];
+  var resultado = document.getElementById("resultado-desafio-final");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Escribe tu respuesta.";
+    return;
+  }
+
+  if (respuesta == "320") {
+    resultado.innerHTML = '<div class="correcto">Haz ganado!!!</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
+    ocultarTeclado();
   } else {
     resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
   }
@@ -1062,4 +1557,7 @@ function verificarDobleHueco() {
 
 </body>
 </html>
+
+
+
 
