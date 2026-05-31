@@ -959,54 +959,6 @@ button {
     <div id="resultado-mosaico">Escribe tu respuesta.</div>
   </div>
 
-  <div class="contenedor oculto" id="pantalla-desafio-final">
-    <div class="numero-ejercicio">12</div>
-    <h1>Desafío final</h1>
-
-    <p>Calcula el área azul. Resta los dos huecos.</p>
-
-    <div class="figura-final-con-medidas">
-      <div class="medida-final-vertical">16 cm</div>
-      <div class="medida-final-superior">24 cm</div>
-      <div class="figura-final">
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="hueco hueco-ancho">8 x 4</div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="hueco hueco-ancho">8 x 4</div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-        <div class="bloque"></div>
-      </div>
-    </div>
-
-    <p>¿Cuál es el área total?</p>
-
-    <input
-      id="respuesta-desafio-final"
-      type="text"
-      inputmode="none"
-      readonly
-      placeholder="cm²"
-      oninput="verificarDesafioFinal()"
-    >
-    <div class="visor-respuesta" id="visor-respuesta-desafio-final">cm²</div>
-
-    <div id="resultado-desafio-final">Escribe tu respuesta.</div>
-  </div>
-
   <div class="teclado-numerico" id="teclado-numerico">
     <button type="button" data-tecla="1" onclick="return tocarNumero(null, '1')">1</button>
     <button type="button" data-tecla="2" onclick="return tocarNumero(null, '2')">2</button>
@@ -1036,8 +988,7 @@ var verificadores = {
   "respuesta-escalera-grande": verificarEscaleraGrande,
   "respuesta-marco": verificarMarco,
   "respuesta-rectangulo-recorte": verificarRectanguloRecorte,
-  "respuesta-mosaico": verificarMosaico,
-  "respuesta-desafio-final": verificarDesafioFinal
+  "respuesta-mosaico": verificarMosaico
 };
 
 var visores = {
@@ -1051,8 +1002,7 @@ var visores = {
   "respuesta-escalera-grande": "visor-respuesta-escalera-grande",
   "respuesta-marco": "visor-respuesta-marco",
   "respuesta-rectangulo-recorte": "visor-respuesta-rectangulo-recorte",
-  "respuesta-mosaico": "visor-respuesta-mosaico",
-  "respuesta-desafio-final": "visor-respuesta-desafio-final"
+  "respuesta-mosaico": "visor-respuesta-mosaico"
 };
 
 var respuestas = {
@@ -1066,8 +1016,7 @@ var respuestas = {
   "respuesta-escalera-grande": "",
   "respuesta-marco": "",
   "respuesta-rectangulo-recorte": "",
-  "respuesta-mosaico": "",
-  "respuesta-desafio-final": ""
+  "respuesta-mosaico": ""
 };
 
 var temporizadorProximo = null;
@@ -1111,8 +1060,7 @@ function iniciarTeclado() {
     "respuesta-escalera-grande",
     "respuesta-marco",
     "respuesta-rectangulo-recorte",
-    "respuesta-mosaico",
-    "respuesta-desafio-final"
+    "respuesta-mosaico"
   ];
 
   if (estado) {
@@ -1169,8 +1117,7 @@ function seleccionarRespuestaVisible() {
     ["pantalla-escalera-grande", "respuesta-escalera-grande"],
     ["pantalla-marco", "respuesta-marco"],
     ["pantalla-rectangulo-recorte", "respuesta-rectangulo-recorte"],
-    ["pantalla-mosaico", "respuesta-mosaico"],
-    ["pantalla-desafio-final", "respuesta-desafio-final"]
+    ["pantalla-mosaico", "respuesta-mosaico"]
   ];
 
   for (var i = 0; i < pares.length; i++) {
@@ -1522,30 +1469,6 @@ function verificarMosaico() {
   }
 
   if (respuesta == "240") {
-    resultado.innerHTML = '<div class="correcto">Muy bien Nati!</div><div class="medalla">🏅</div>';
-    ocultarTeclado();
-    pasarLuego(mostrarDesafioFinal);
-  } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
-  }
-}
-
-function mostrarDesafioFinal() {
-  document.getElementById("pantalla-mosaico").className = "contenedor oculto";
-  document.getElementById("pantalla-desafio-final").className = "contenedor";
-  seleccionarRespuesta("respuesta-desafio-final");
-}
-
-function verificarDesafioFinal() {
-  var respuesta = respuestas["respuesta-desafio-final"];
-  var resultado = document.getElementById("resultado-desafio-final");
-
-  if (respuesta == "") {
-    resultado.innerHTML = "Escribe tu respuesta.";
-    return;
-  }
-
-  if (respuesta == "320") {
     resultado.innerHTML = '<div class="correcto">Haz ganado!!!</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
     ocultarTeclado();
   } else {
@@ -1557,6 +1480,7 @@ function verificarDesafioFinal() {
 
 </body>
 </html>
+
 
 
 
