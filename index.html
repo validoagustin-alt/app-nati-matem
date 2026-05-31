@@ -1137,6 +1137,86 @@ button {
     <div id="resultado-obm-5">Haz el camino al revés: primero resta 7.</div>
   </div>
 
+  <div class="contenedor oculto" id="pantalla-obm-6">
+    <div class="numero-ejercicio">6</div>
+    <h1>OBM: repartiendo</h1>
+
+    <p>Nati tiene <strong>36</strong> stickers.</p>
+    <p>Quiere armar bolsitas con <strong>4</strong> stickers en cada una.</p>
+    <p>¿Cuántas bolsitas completas puede armar?</p>
+
+    <div class="obm-visual">36 ÷ 4 = ?</div>
+
+    <input id="respuesta-obm-6" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM6()">
+    <div class="visor-respuesta" id="visor-respuesta-obm-6">?</div>
+
+    <div id="resultado-obm-6">Piensa en grupos iguales.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-obm-7">
+    <div class="numero-ejercicio">7</div>
+    <h1>OBM: números secretos</h1>
+
+    <p>El número secreto es mayor que <strong>20</strong> y menor que <strong>40</strong>.</p>
+    <p>Es múltiplo de <strong>6</strong> y también es múltiplo de <strong>9</strong>.</p>
+    <p>¿Cuál es el número?</p>
+
+    <div class="obm-visual">6 × ? = número<br>9 × ? = número</div>
+
+    <input id="respuesta-obm-7" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM7()">
+    <div class="visor-respuesta" id="visor-respuesta-obm-7">?</div>
+
+    <div id="resultado-obm-7">Busca un número que esté en las dos tablas.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-obm-8">
+    <div class="numero-ejercicio">8</div>
+    <h1>OBM: perímetro</h1>
+
+    <p>Un rectángulo tiene lados de <strong>7 cm</strong> y <strong>5 cm</strong>.</p>
+    <p>¿Cuál es su perímetro?</p>
+
+    <div class="obm-visual">7 + 5 + 7 + 5</div>
+
+    <input id="respuesta-obm-8" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM8()">
+    <div class="visor-respuesta" id="visor-respuesta-obm-8">?</div>
+
+    <div id="resultado-obm-8">El perímetro rodea toda la figura.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-obm-9">
+    <div class="numero-ejercicio">9</div>
+    <h1>OBM: lógica</h1>
+
+    <p>En una fila hay <strong>15</strong> niñas.</p>
+    <p>Nati está en el lugar <strong>6</strong> contando desde el principio.</p>
+    <p>¿En qué lugar está contando desde el final?</p>
+
+    <div class="obm-visual">principio: 1 2 3 4 5 Nati ... 15</div>
+
+    <input id="respuesta-obm-9" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM9()">
+    <div class="visor-respuesta" id="visor-respuesta-obm-9">?</div>
+
+    <div id="resultado-obm-9">Cuenta cuántas personas quedan detrás de Nati.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-obm-10">
+    <div class="numero-ejercicio">10</div>
+    <h1>OBM: desafío final</h1>
+
+    <p>Un número tiene dos cifras.</p>
+    <p>La suma de sus cifras es <strong>9</strong>.</p>
+    <p>La cifra de las decenas es el doble de la cifra de las unidades.</p>
+    <p>¿Cuál es el número?</p>
+
+    <div class="obm-visual">decenas + unidades = 9<br>decenas = 2 × unidades</div>
+
+    <input id="respuesta-obm-10" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM10()">
+    <div class="visor-respuesta" id="visor-respuesta-obm-10">?</div>
+
+    <div id="resultado-obm-10">Prueba con cifras que sumen 9.</div>
+  </div>
+
   <div class="contenedor oculto" id="pantalla-cuadrado">
     <div class="numero-ejercicio">1</div>
     <h1>Área del cuadrado</h1>
@@ -1558,7 +1638,12 @@ var verificadores = {
   "respuesta-obm-2": verificarOBM2,
   "respuesta-obm-3": verificarOBM3,
   "respuesta-obm-4": verificarOBM4,
-  "respuesta-obm-5": verificarOBM5
+  "respuesta-obm-5": verificarOBM5,
+  "respuesta-obm-6": verificarOBM6,
+  "respuesta-obm-7": verificarOBM7,
+  "respuesta-obm-8": verificarOBM8,
+  "respuesta-obm-9": verificarOBM9,
+  "respuesta-obm-10": verificarOBM10
 };
 
 var visores = {
@@ -1579,7 +1664,12 @@ var visores = {
   "respuesta-obm-2": "visor-respuesta-obm-2",
   "respuesta-obm-3": "visor-respuesta-obm-3",
   "respuesta-obm-4": "visor-respuesta-obm-4",
-  "respuesta-obm-5": "visor-respuesta-obm-5"
+  "respuesta-obm-5": "visor-respuesta-obm-5",
+  "respuesta-obm-6": "visor-respuesta-obm-6",
+  "respuesta-obm-7": "visor-respuesta-obm-7",
+  "respuesta-obm-8": "visor-respuesta-obm-8",
+  "respuesta-obm-9": "visor-respuesta-obm-9",
+  "respuesta-obm-10": "visor-respuesta-obm-10"
 };
 
 var respuestas = {
@@ -1600,7 +1690,12 @@ var respuestas = {
   "respuesta-obm-2": "",
   "respuesta-obm-3": "",
   "respuesta-obm-4": "",
-  "respuesta-obm-5": ""
+  "respuesta-obm-5": "",
+  "respuesta-obm-6": "",
+  "respuesta-obm-7": "",
+  "respuesta-obm-8": "",
+  "respuesta-obm-9": "",
+  "respuesta-obm-10": ""
 };
 
 var placeholders = {
@@ -1610,7 +1705,12 @@ var placeholders = {
   "respuesta-obm-2": "?",
   "respuesta-obm-3": "?",
   "respuesta-obm-4": "?",
-  "respuesta-obm-5": "?"
+  "respuesta-obm-5": "?",
+  "respuesta-obm-6": "?",
+  "respuesta-obm-7": "?",
+  "respuesta-obm-8": "?",
+  "respuesta-obm-9": "?",
+  "respuesta-obm-10": "?"
 };
 
 var temporizadorProximo = null;
@@ -1665,7 +1765,12 @@ function iniciarTeclado() {
     "respuesta-obm-2",
     "respuesta-obm-3",
     "respuesta-obm-4",
-    "respuesta-obm-5"
+    "respuesta-obm-5",
+    "respuesta-obm-6",
+    "respuesta-obm-7",
+    "respuesta-obm-8",
+    "respuesta-obm-9",
+    "respuesta-obm-10"
   ];
 
   if (estado) {
@@ -1892,7 +1997,12 @@ function seleccionarRespuestaVisible() {
     ["pantalla-obm-2", "respuesta-obm-2"],
     ["pantalla-obm-3", "respuesta-obm-3"],
     ["pantalla-obm-4", "respuesta-obm-4"],
-    ["pantalla-obm-5", "respuesta-obm-5"]
+    ["pantalla-obm-5", "respuesta-obm-5"],
+    ["pantalla-obm-6", "respuesta-obm-6"],
+    ["pantalla-obm-7", "respuesta-obm-7"],
+    ["pantalla-obm-8", "respuesta-obm-8"],
+    ["pantalla-obm-9", "respuesta-obm-9"],
+    ["pantalla-obm-10", "respuesta-obm-10"]
   ];
 
   for (var i = 0; i < pares.length; i++) {
@@ -2512,10 +2622,130 @@ function verificarOBM5() {
   }
 
   if (respuesta == "5") {
-    resultado.innerHTML = '<div class="correcto">Haz ganado!!! Tu cabeza matemática está creciendo.</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
+    resultado.innerHTML = '<div class="correcto">¡Excelente! Resolver al revés es poder matemático.</div><div class="medalla">🏅</div>';
     ocultarTeclado();
+    pasarLuego(mostrarOBM6);
   } else {
     resultado.innerHTML = '<div class="incorrecto">Camino inverso: 22 - 7, y después divide por 3.</div>';
+  }
+}
+
+function mostrarOBM6() {
+  document.getElementById("pantalla-obm-5").className = "contenedor oculto";
+  document.getElementById("pantalla-obm-6").className = "contenedor";
+  seleccionarRespuesta("respuesta-obm-6");
+}
+
+function verificarOBM6() {
+  var respuesta = respuestas["respuesta-obm-6"];
+  var resultado = document.getElementById("resultado-obm-6");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Piensa en grupos iguales.";
+    return;
+  }
+
+  if (respuesta == "9") {
+    resultado.innerHTML = '<div class="correcto">¡Muy bien! Organizar en grupos ayuda mucho.</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarOBM7);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Cuenta grupos de 4 hasta llegar a 36.</div>';
+  }
+}
+
+function mostrarOBM7() {
+  document.getElementById("pantalla-obm-6").className = "contenedor oculto";
+  document.getElementById("pantalla-obm-7").className = "contenedor";
+  seleccionarRespuesta("respuesta-obm-7");
+}
+
+function verificarOBM7() {
+  var respuesta = respuestas["respuesta-obm-7"];
+  var resultado = document.getElementById("resultado-obm-7");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Busca un número que esté en las dos tablas.";
+    return;
+  }
+
+  if (respuesta == "36") {
+    resultado.innerHTML = '<div class="correcto">¡Eso, Nati! Encontraste el punto en común.</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarOBM8);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Mira los múltiplos de 6 y 9 entre 20 y 40.</div>';
+  }
+}
+
+function mostrarOBM8() {
+  document.getElementById("pantalla-obm-7").className = "contenedor oculto";
+  document.getElementById("pantalla-obm-8").className = "contenedor";
+  seleccionarRespuesta("respuesta-obm-8");
+}
+
+function verificarOBM8() {
+  var respuesta = respuestas["respuesta-obm-8"];
+  var resultado = document.getElementById("resultado-obm-8");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "El perímetro rodea toda la figura.";
+    return;
+  }
+
+  if (respuesta == "24") {
+    resultado.innerHTML = '<div class="correcto">¡Muy buena mirada geométrica!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarOBM9);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Suma los cuatro lados: 7 + 5 + 7 + 5.</div>';
+  }
+}
+
+function mostrarOBM9() {
+  document.getElementById("pantalla-obm-8").className = "contenedor oculto";
+  document.getElementById("pantalla-obm-9").className = "contenedor";
+  seleccionarRespuesta("respuesta-obm-9");
+}
+
+function verificarOBM9() {
+  var respuesta = respuestas["respuesta-obm-9"];
+  var resultado = document.getElementById("resultado-obm-9");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Cuenta cuántas personas quedan detrás de Nati.";
+    return;
+  }
+
+  if (respuesta == "10") {
+    resultado.innerHTML = '<div class="correcto">¡Qué bien pensaste la fila desde los dos lados!</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarOBM10);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Si Nati es la 6, hay 9 niñas detrás de ella.</div>';
+  }
+}
+
+function mostrarOBM10() {
+  document.getElementById("pantalla-obm-9").className = "contenedor oculto";
+  document.getElementById("pantalla-obm-10").className = "contenedor";
+  seleccionarRespuesta("respuesta-obm-10");
+}
+
+function verificarOBM10() {
+  var respuesta = respuestas["respuesta-obm-10"];
+  var resultado = document.getElementById("resultado-obm-10");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Prueba con cifras que sumen 9.";
+    return;
+  }
+
+  if (respuesta == "63") {
+    resultado.innerHTML = '<div class="correcto">Haz ganado!!! Tu pensamiento está cada vez más fuerte.</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
+    ocultarTeclado();
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Si la unidad es 3, la decena es 6.</div>';
   }
 }
 
@@ -2523,6 +2753,7 @@ function verificarOBM5() {
 
 </body>
 </html>
+
 
 
 
