@@ -283,6 +283,82 @@ body {
   background: linear-gradient(135deg, #bfdbfe, #ddd6fe);
 }
 
+.obm-triangulos {
+  position: relative;
+  width: 210px;
+  height: 178px;
+  margin: 18px auto;
+}
+
+.obm-triangulos::before,
+.obm-triangulos::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 86px solid transparent;
+  border-right: 86px solid transparent;
+  transform: translateX(-50%);
+}
+
+.obm-triangulos::before {
+  bottom: 4px;
+  border-bottom: 150px solid rgba(139,92,246,0.18);
+}
+
+.obm-triangulos::after {
+  bottom: 10px;
+  border-bottom: 138px solid rgba(236,72,153,0.1);
+}
+
+.obm-triangulos span {
+  position: absolute;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  border-left: 28px solid transparent;
+  border-right: 28px solid transparent;
+  border-bottom: 48px solid #8b5cf6;
+  filter: drop-shadow(0 5px 8px rgba(124,58,237,0.22));
+}
+
+.obm-triangulos span:nth-child(1) {
+  left: 77px;
+  top: 8px;
+  border-bottom-color: #ec4899;
+}
+
+.obm-triangulos span:nth-child(2) {
+  left: 48px;
+  top: 62px;
+  border-bottom-color: #38bdf8;
+}
+
+.obm-triangulos span:nth-child(3) {
+  left: 106px;
+  top: 62px;
+  border-bottom-color: #f59e0b;
+}
+
+.obm-triangulos span:nth-child(4) {
+  left: 19px;
+  top: 116px;
+  border-bottom-color: #a78bfa;
+}
+
+.obm-triangulos span:nth-child(5) {
+  left: 77px;
+  top: 116px;
+  border-bottom-color: #fb7185;
+}
+
+.obm-triangulos span:nth-child(6) {
+  left: 135px;
+  top: 116px;
+  border-bottom-color: #22c55e;
+}
+
 h1 {
   font-size: 25px;
   margin-bottom: 10px;
@@ -1217,6 +1293,88 @@ button {
     <div id="resultado-obm-10">Prueba con cifras que sumen 9.</div>
   </div>
 
+  <div class="contenedor oculto" id="pantalla-obm-11">
+    <div class="numero-ejercicio">11</div>
+    <h1>OBM: calendario</h1>
+
+    <p>Hoy es lunes.</p>
+    <p>¿Qué día de la semana será dentro de <strong>45</strong> días?</p>
+
+    <div class="obm-visual">45 ÷ 7 deja resto...</div>
+
+    <input id="respuesta-obm-11" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM11()">
+    <div class="visor-respuesta" id="visor-respuesta-obm-11">?</div>
+
+    <div id="resultado-obm-11">Usa números: lunes = 1, martes = 2...</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-obm-12">
+    <div class="numero-ejercicio">12</div>
+    <h1>OBM: monedas</h1>
+
+    <p>Nati tiene monedas de <strong>2</strong> y de <strong>5</strong>.</p>
+    <p>En total tiene <strong>31</strong>.</p>
+    <p>Si tiene <strong>8</strong> monedas de 2, ¿cuántas monedas de 5 tiene?</p>
+
+    <div class="obm-visual">8 × 2 + ? × 5 = 31</div>
+
+    <input id="respuesta-obm-12" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM12()">
+    <div class="visor-respuesta" id="visor-respuesta-obm-12">?</div>
+
+    <div id="resultado-obm-12">Primero calcula cuánto valen las monedas de 2.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-obm-13">
+    <div class="numero-ejercicio">13</div>
+    <h1>OBM: triángulos</h1>
+
+    <p>En esta figura hay triángulos pequeños y grandes.</p>
+    <p>Cuenta todos los triángulos.</p>
+
+    <div class="obm-triangulos">
+      <span></span><span></span><span></span>
+      <span></span><span></span>
+      <span></span>
+    </div>
+
+    <input id="respuesta-obm-13" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM13()">
+    <div class="visor-respuesta" id="visor-respuesta-obm-13">?</div>
+
+    <div id="resultado-obm-13">No cuentes solo los pequeños: también hay grupos.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-obm-14">
+    <div class="numero-ejercicio">14</div>
+    <h1>OBM: edades II</h1>
+
+    <p>La mamá de Nati tiene <strong>36</strong> años.</p>
+    <p>Nati tiene <strong>11</strong> años.</p>
+    <p>¿En cuántos años la mamá tendrá el doble de la edad de Nati?</p>
+
+    <div class="obm-visual">36 + x = 2 × (11 + x)</div>
+
+    <input id="respuesta-obm-14" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM14()">
+    <div class="visor-respuesta" id="visor-respuesta-obm-14">?</div>
+
+    <div id="resultado-obm-14">Las dos edades avanzan al mismo tiempo.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-obm-15">
+    <div class="numero-ejercicio">15</div>
+    <h1>OBM: súper desafío</h1>
+
+    <p>Un número de dos cifras tiene suma de cifras <strong>12</strong>.</p>
+    <p>Si cambiamos el orden de sus cifras, el nuevo número es <strong>18</strong> menor.</p>
+    <p>¿Cuál es el número original?</p>
+
+    <div class="obm-visual">decenas + unidades = 12<br>original - invertido = 18</div>
+
+    <input id="respuesta-obm-15" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM15()">
+    <div class="visor-respuesta" id="visor-respuesta-obm-15">?</div>
+
+    <div id="resultado-obm-15">Prueba pares de cifras que sumen 12.</div>
+  </div>
+
   <div class="contenedor oculto" id="pantalla-cuadrado">
     <div class="numero-ejercicio">1</div>
     <h1>Área del cuadrado</h1>
@@ -1643,7 +1801,12 @@ var verificadores = {
   "respuesta-obm-7": verificarOBM7,
   "respuesta-obm-8": verificarOBM8,
   "respuesta-obm-9": verificarOBM9,
-  "respuesta-obm-10": verificarOBM10
+  "respuesta-obm-10": verificarOBM10,
+  "respuesta-obm-11": verificarOBM11,
+  "respuesta-obm-12": verificarOBM12,
+  "respuesta-obm-13": verificarOBM13,
+  "respuesta-obm-14": verificarOBM14,
+  "respuesta-obm-15": verificarOBM15
 };
 
 var visores = {
@@ -1669,7 +1832,12 @@ var visores = {
   "respuesta-obm-7": "visor-respuesta-obm-7",
   "respuesta-obm-8": "visor-respuesta-obm-8",
   "respuesta-obm-9": "visor-respuesta-obm-9",
-  "respuesta-obm-10": "visor-respuesta-obm-10"
+  "respuesta-obm-10": "visor-respuesta-obm-10",
+  "respuesta-obm-11": "visor-respuesta-obm-11",
+  "respuesta-obm-12": "visor-respuesta-obm-12",
+  "respuesta-obm-13": "visor-respuesta-obm-13",
+  "respuesta-obm-14": "visor-respuesta-obm-14",
+  "respuesta-obm-15": "visor-respuesta-obm-15"
 };
 
 var respuestas = {
@@ -1695,7 +1863,12 @@ var respuestas = {
   "respuesta-obm-7": "",
   "respuesta-obm-8": "",
   "respuesta-obm-9": "",
-  "respuesta-obm-10": ""
+  "respuesta-obm-10": "",
+  "respuesta-obm-11": "",
+  "respuesta-obm-12": "",
+  "respuesta-obm-13": "",
+  "respuesta-obm-14": "",
+  "respuesta-obm-15": ""
 };
 
 var placeholders = {
@@ -1710,7 +1883,12 @@ var placeholders = {
   "respuesta-obm-7": "?",
   "respuesta-obm-8": "?",
   "respuesta-obm-9": "?",
-  "respuesta-obm-10": "?"
+  "respuesta-obm-10": "?",
+  "respuesta-obm-11": "?",
+  "respuesta-obm-12": "?",
+  "respuesta-obm-13": "?",
+  "respuesta-obm-14": "?",
+  "respuesta-obm-15": "?"
 };
 
 var temporizadorProximo = null;
@@ -1770,7 +1948,12 @@ function iniciarTeclado() {
     "respuesta-obm-7",
     "respuesta-obm-8",
     "respuesta-obm-9",
-    "respuesta-obm-10"
+    "respuesta-obm-10",
+    "respuesta-obm-11",
+    "respuesta-obm-12",
+    "respuesta-obm-13",
+    "respuesta-obm-14",
+    "respuesta-obm-15"
   ];
 
   if (estado) {
@@ -2002,7 +2185,12 @@ function seleccionarRespuestaVisible() {
     ["pantalla-obm-7", "respuesta-obm-7"],
     ["pantalla-obm-8", "respuesta-obm-8"],
     ["pantalla-obm-9", "respuesta-obm-9"],
-    ["pantalla-obm-10", "respuesta-obm-10"]
+    ["pantalla-obm-10", "respuesta-obm-10"],
+    ["pantalla-obm-11", "respuesta-obm-11"],
+    ["pantalla-obm-12", "respuesta-obm-12"],
+    ["pantalla-obm-13", "respuesta-obm-13"],
+    ["pantalla-obm-14", "respuesta-obm-14"],
+    ["pantalla-obm-15", "respuesta-obm-15"]
   ];
 
   for (var i = 0; i < pares.length; i++) {
@@ -2742,10 +2930,130 @@ function verificarOBM10() {
   }
 
   if (respuesta == "63") {
-    resultado.innerHTML = '<div class="correcto">Haz ganado!!! Tu pensamiento está cada vez más fuerte.</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
+    resultado.innerHTML = '<div class="correcto">¡Brillante, Nati! Ya resolviste un desafío de cifras.</div><div class="medalla">🏅</div>';
     ocultarTeclado();
+    pasarLuego(mostrarOBM11);
   } else {
     resultado.innerHTML = '<div class="incorrecto">Si la unidad es 3, la decena es 6.</div>';
+  }
+}
+
+function mostrarOBM11() {
+  document.getElementById("pantalla-obm-10").className = "contenedor oculto";
+  document.getElementById("pantalla-obm-11").className = "contenedor";
+  seleccionarRespuesta("respuesta-obm-11");
+}
+
+function verificarOBM11() {
+  var respuesta = respuestas["respuesta-obm-11"];
+  var resultado = document.getElementById("resultado-obm-11");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Cuenta los días que sobran después de semanas completas.";
+    return;
+  }
+
+  if (respuesta == "4") {
+    resultado.innerHTML = '<div class="correcto">¡Eso, Nati! Usaste el ciclo de la semana como campeona.</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarOBM12);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">45 días son 6 semanas y 3 días. Lunes + 3 = jueves.</div>';
+  }
+}
+
+function mostrarOBM12() {
+  document.getElementById("pantalla-obm-11").className = "contenedor oculto";
+  document.getElementById("pantalla-obm-12").className = "contenedor";
+  seleccionarRespuesta("respuesta-obm-12");
+}
+
+function verificarOBM12() {
+  var respuesta = respuestas["respuesta-obm-12"];
+  var resultado = document.getElementById("resultado-obm-12");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Primero suma el valor de las monedas de 2.";
+    return;
+  }
+
+  if (respuesta == "3") {
+    resultado.innerHTML = '<div class="correcto">¡Muy bien! Separaste la información importante.</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarOBM13);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">8 monedas de 2 valen 16. Faltan 15, que son 3 monedas de 5.</div>';
+  }
+}
+
+function mostrarOBM13() {
+  document.getElementById("pantalla-obm-12").className = "contenedor oculto";
+  document.getElementById("pantalla-obm-13").className = "contenedor";
+  seleccionarRespuesta("respuesta-obm-13");
+}
+
+function verificarOBM13() {
+  var respuesta = respuestas["respuesta-obm-13"];
+  var resultado = document.getElementById("resultado-obm-13");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Cuenta los pequeños, después los medianos y al final el grande.";
+    return;
+  }
+
+  if (respuesta == "10") {
+    resultado.innerHTML = '<div class="correcto">¡Ojo matemático afilado! Viste figuras escondidas.</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarOBM14);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Hay 6 pequeños, 3 medianos y 1 grande.</div>';
+  }
+}
+
+function mostrarOBM14() {
+  document.getElementById("pantalla-obm-13").className = "contenedor oculto";
+  document.getElementById("pantalla-obm-14").className = "contenedor";
+  seleccionarRespuesta("respuesta-obm-14");
+}
+
+function verificarOBM14() {
+  var respuesta = respuestas["respuesta-obm-14"];
+  var resultado = document.getElementById("resultado-obm-14");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Prueba pensar cuántos años pasan para las dos al mismo tiempo.";
+    return;
+  }
+
+  if (respuesta == "14") {
+    resultado.innerHTML = '<div class="correcto">¡Qué buen razonamiento, Nati! Comparaste edades con calma.</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(mostrarOBM15);
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">En 14 años: Nati tendrá 25 y su mamá 50.</div>';
+  }
+}
+
+function mostrarOBM15() {
+  document.getElementById("pantalla-obm-14").className = "contenedor oculto";
+  document.getElementById("pantalla-obm-15").className = "contenedor";
+  seleccionarRespuesta("respuesta-obm-15");
+}
+
+function verificarOBM15() {
+  var respuesta = respuestas["respuesta-obm-15"];
+  var resultado = document.getElementById("resultado-obm-15");
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Busca dos cifras que sumen 12 y cambien 18 al invertirlas.";
+    return;
+  }
+
+  if (respuesta == "75") {
+    resultado.innerHTML = '<div class="correcto">Haz ganado!!! Tu mente OBM está poderosa.</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
+    ocultarTeclado();
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">Las cifras son 7 y 5: 75 - 57 = 18.</div>';
   }
 }
 
@@ -2753,6 +3061,7 @@ function verificarOBM10() {
 
 </body>
 </html>
+
 
 
 
