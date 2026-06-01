@@ -257,6 +257,22 @@ body {
   box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5);
 }
 
+.obm-visual.ayuda-cerrada {
+  max-width: 180px;
+  padding: 11px 16px;
+  background: linear-gradient(135deg, #facc15, #fb7185);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(251,113,133,0.24);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.obm-visual.ayuda-abierta {
+  cursor: pointer;
+}
+
 .obm-tablero {
   width: 210px;
   margin: 18px auto;
@@ -281,6 +297,17 @@ body {
 
 .obm-tablero i {
   background: linear-gradient(135deg, #bfdbfe, #ddd6fe);
+}
+
+.opcion-texto {
+  margin: 12px auto 0;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #38bdf8, #8b5cf6);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(56,189,248,0.24);
 }
 
 .obm-triangulos {
@@ -1298,14 +1325,16 @@ button {
     <h1>OBM: calendario</h1>
 
     <p>Hoy es lunes.</p>
-    <p>¿Qué día de la semana será dentro de <strong>45</strong> días?</p>
+    <p>Dentro de <strong>45</strong> días será jueves.</p>
+    <p>¿Qué número corresponde al jueves, si lunes = 1, martes = 2, miércoles = 3...?</p>
 
     <div class="obm-visual">45 ÷ 7 deja resto...</div>
 
     <input id="respuesta-obm-11" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM11()">
     <div class="visor-respuesta" id="visor-respuesta-obm-11">?</div>
+    <button class="opcion-texto" onclick="responderConTexto('respuesta-obm-11', 'jueves')">jueves</button>
 
-    <div id="resultado-obm-11">Usa números: lunes = 1, martes = 2...</div>
+    <div id="resultado-obm-11">Puedes responder 4 o tocar la palabra jueves.</div>
   </div>
 
   <div class="contenedor oculto" id="pantalla-obm-12">
@@ -1960,6 +1989,9 @@ function iniciarTeclado() {
     estado.innerHTML = "JavaScript activo";
     estado.className = "estado-js activo";
   }
+
+  prepararAyudas();
+
   for (var j = 0; j < ids.length; j++) {
     var input = document.getElementById(ids[j]);
 
@@ -1981,6 +2013,49 @@ function iniciarTeclado() {
   } else {
     seleccionarRespuesta("respuesta");
   }
+}
+
+function prepararAyudas() {
+  var ayudas = document.querySelectorAll(".obm-visual");
+
+  for (var i = 0; i < ayudas.length; i++) {
+    if (ayudas[i].getAttribute("data-preparada") == "si") {
+      continue;
+    }
+
+    ayudas[i].setAttribute("data-ayuda", ayudas[i].innerHTML);
+    ayudas[i].setAttribute("data-preparada", "si");
+    ayudas[i].setAttribute("role", "button");
+    ayudas[i].setAttribute("tabindex", "0");
+    ayudas[i].className = ayudas[i].className + " ayuda-cerrada";
+    ayudas[i].innerHTML = "Ayuda";
+    ayudas[i].onclick = alternarAyuda;
+    ayudas[i].onkeydown = function(evento) {
+      if (evento.key == "Enter" || evento.key == " ") {
+        evento.preventDefault();
+        alternarAyuda.call(this);
+      }
+    };
+  }
+}
+
+function alternarAyuda() {
+  if (this.getAttribute("data-abierta") == "si") {
+    this.setAttribute("data-abierta", "no");
+    this.className = this.className.replace(" ayuda-abierta", "");
+    if (this.className.indexOf("ayuda-cerrada") == -1) {
+      this.className = this.className + " ayuda-cerrada";
+    }
+    this.innerHTML = "Ayuda";
+    return;
+  }
+
+  this.setAttribute("data-abierta", "si");
+  this.className = this.className.replace(" ayuda-cerrada", "");
+  if (this.className.indexOf("ayuda-abierta") == -1) {
+    this.className = this.className + " ayuda-abierta";
+  }
+  this.innerHTML = this.getAttribute("data-ayuda");
 }
 
 function mostrarArea() {
@@ -2281,6 +2356,16 @@ function tocarTeclaValor(tecla) {
 
   if (verificarActual) {
     verificarActual();
+  }
+}
+
+function responderConTexto(id, valor) {
+  respuestas[id] = valor;
+  seleccionarRespuesta(id);
+  actualizarVisor(id);
+
+  if (verificadores[id]) {
+    verificadores[id]();
   }
 }
 
@@ -2947,18 +3032,19 @@ function mostrarOBM11() {
 function verificarOBM11() {
   var respuesta = respuestas["respuesta-obm-11"];
   var resultado = document.getElementById("resultado-obm-11");
+  var respuestaLimpia = respuesta.toLowerCase();
 
   if (respuesta == "") {
-    resultado.innerHTML = "Cuenta los días que sobran después de semanas completas.";
+    resultado.innerHTML = "Puedes responder 4 o tocar la palabra jueves.";
     return;
   }
 
-  if (respuesta == "4") {
+  if (respuesta == "4" || respuestaLimpia == "jueves") {
     resultado.innerHTML = '<div class="correcto">¡Eso, Nati! Usaste el ciclo de la semana como campeona.</div><div class="medalla">🏅</div>';
     ocultarTeclado();
     pasarLuego(mostrarOBM12);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">45 días son 6 semanas y 3 días. Lunes + 3 = jueves.</div>';
+    resultado.innerHTML = '<div class="incorrecto">45 días son 6 semanas y 3 días. Lunes + 3 = jueves, que corresponde al número 4.</div>';
   }
 }
 
@@ -3061,6 +3147,8 @@ function verificarOBM15() {
 
 </body>
 </html>
+
+
 
 
 
