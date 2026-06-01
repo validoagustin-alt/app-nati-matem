@@ -1339,18 +1339,18 @@ button {
 
   <div class="contenedor oculto" id="pantalla-obm-12">
     <div class="numero-ejercicio">12</div>
-    <h1>OBM: monedas</h1>
+    <h1>OBM: billetes</h1>
 
-    <p>Nati tiene monedas de <strong>2</strong> y de <strong>5</strong>.</p>
-    <p>En total tiene <strong>31</strong>.</p>
-    <p>Si tiene <strong>8</strong> monedas de 2, ¿cuántas monedas de 5 tiene?</p>
+    <p>Nati tiene billetes de <strong>2 reales</strong> y de <strong>5 reales</strong>.</p>
+    <p>En total tiene <strong>31 reales</strong>.</p>
+    <p>Si tiene <strong>8</strong> billetes de 2 reales, ¿cuántos billetes de 5 reales tiene?</p>
 
     <div class="obm-visual">8 × 2 + ? × 5 = 31</div>
 
     <input id="respuesta-obm-12" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarOBM12()">
     <div class="visor-respuesta" id="visor-respuesta-obm-12">?</div>
 
-    <div id="resultado-obm-12">Primero calcula cuánto valen las monedas de 2.</div>
+    <div id="resultado-obm-12">Primero calcula cuánto valen los billetes de 2 reales.</div>
   </div>
 
   <div class="contenedor oculto" id="pantalla-obm-13">
@@ -3059,7 +3059,7 @@ function verificarOBM12() {
   var resultado = document.getElementById("resultado-obm-12");
 
   if (respuesta == "") {
-    resultado.innerHTML = "Primero suma el valor de las monedas de 2.";
+    resultado.innerHTML = "Primero suma el valor de los billetes de 2 reales.";
     return;
   }
 
@@ -3068,7 +3068,7 @@ function verificarOBM12() {
     ocultarTeclado();
     pasarLuego(mostrarOBM13);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">8 monedas de 2 valen 16. Faltan 15, que son 3 monedas de 5.</div>';
+    resultado.innerHTML = '<div class="incorrecto">8 billetes de 2 reales valen 16 reales. Faltan 15 reales, que son 3 billetes de 5 reales.</div>';
   }
 }
 
@@ -3147,6 +3147,7 @@ function verificarOBM15() {
 
 </body>
 </html>
+
 
 
 
