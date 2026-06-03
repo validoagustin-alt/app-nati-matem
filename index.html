@@ -62,8 +62,22 @@ body {
 }
 
 .estado-js.activo {
-  background: #dcfce7;
-  color: #166534;
+  display: none;
+}
+
+.boton-menu-app {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top));
+  left: 10px;
+  z-index: 9998;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.94);
+  color: #7c3aed;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 3px 10px rgba(124,58,237,0.18);
 }
 
 .menu-principal {
@@ -123,6 +137,16 @@ body {
 
 .opcion-obm {
   background: linear-gradient(135deg, #f59e0b, #ec4899);
+  color: white;
+}
+
+.opcion-potencia {
+  background: linear-gradient(135deg, #06b6d4, #7c3aed);
+  color: white;
+}
+
+.opcion-equacoes {
+  background: linear-gradient(135deg, #10b981, #06b6d4);
   color: white;
 }
 
@@ -927,6 +951,7 @@ button {
 <body>
 
   <div class="estado-js" id="estado-js">JavaScript no activo</div>
+  <button type="button" class="boton-menu-app oculto" id="boton-menu-app" onclick="volverMenu()">Menú</button>
 
   <div class="menu-principal" id="pantalla-menu">
     <div class="menu-brillo">✦</div>
@@ -954,6 +979,22 @@ button {
       <span>
         <strong>OBM</strong>
         <small>Desafíos para pensar con calma y estrategia</small>
+      </span>
+    </button>
+
+    <button type="button" class="opcion-menu opcion-potencia" onclick="mostrarPotencia()">
+      <span class="opcion-icono">√</span>
+      <span>
+        <strong>Potenciação e radiciação</strong>
+        <small>Potencias, raíces exactas y expresiones numéricas</small>
+      </span>
+    </button>
+
+    <button type="button" class="opcion-menu opcion-equacoes" onclick="mostrarEquacoes()">
+      <span class="opcion-icono">x</span>
+      <span>
+        <strong>Equações</strong>
+        <small>Encontrar el valor de x paso a paso</small>
       </span>
     </button>
 
@@ -1404,6 +1445,336 @@ button {
     <div id="resultado-obm-15">Prueba pares de cifras que sumen 12.</div>
   </div>
 
+  <div class="contenedor oculto" id="pantalla-potencia-1">
+    <div class="numero-ejercicio">1</div>
+    <h1>Potenciação</h1>
+    <p>Calcula:</p>
+    <p><strong>2³</strong></p>
+    <div class="obm-visual">2³ = 2 × 2 × 2</div>
+    <input id="respuesta-potencia-1" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-1">?</div>
+    <div id="resultado-potencia-1">Recuerda: el exponente dice cuántas veces se multiplica.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-2">
+    <div class="numero-ejercicio">2</div>
+    <h1>Cuadrado perfecto</h1>
+    <p>Calcula:</p>
+    <p><strong>5²</strong></p>
+    <div class="obm-visual">5² = 5 × 5</div>
+    <input id="respuesta-potencia-2" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-2">?</div>
+    <div id="resultado-potencia-2">Un número al cuadrado se multiplica por sí mismo.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-3">
+    <div class="numero-ejercicio">3</div>
+    <h1>Cubo</h1>
+    <p>Calcula:</p>
+    <p><strong>10³</strong></p>
+    <div class="obm-visual">10³ = 10 × 10 × 10</div>
+    <input id="respuesta-potencia-3" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-3">?</div>
+    <div id="resultado-potencia-3">Multiplica 10 tres veces.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-4">
+    <div class="numero-ejercicio">4</div>
+    <h1>Expresión con potencias</h1>
+    <p>Calcula:</p>
+    <p><strong>4² + 3²</strong></p>
+    <div class="obm-visual">4² = 16 y 3² = 9</div>
+    <input id="respuesta-potencia-4" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-4">?</div>
+    <div id="resultado-potencia-4">Primero resuelve las potencias, después suma.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-5">
+    <div class="numero-ejercicio">5</div>
+    <h1>Raiz quadrada</h1>
+    <p>Calcula la raíz cuadrada exacta:</p>
+    <p><strong>√49</strong></p>
+    <div class="obm-visual">¿Qué número por sí mismo da 49?</div>
+    <input id="respuesta-potencia-5" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-5">?</div>
+    <div id="resultado-potencia-5">Busca el número que multiplicado por sí mismo da 49.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-6">
+    <div class="numero-ejercicio">6</div>
+    <h1>Raíz y potencia</h1>
+    <p>Calcula:</p>
+    <p><strong>√81 + 2³</strong></p>
+    <div class="obm-visual">√81 = 9 y 2³ = 8</div>
+    <input id="respuesta-potencia-6" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-6">?</div>
+    <div id="resultado-potencia-6">Resuelve cada parte y después suma.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-7">
+    <div class="numero-ejercicio">7</div>
+    <h1>Raiz cúbica</h1>
+    <p>Calcula la raíz cúbica exacta:</p>
+    <p><strong>∛27</strong></p>
+    <div class="obm-visual">¿Qué número × número × número da 27?</div>
+    <input id="respuesta-potencia-7" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-7">?</div>
+    <div id="resultado-potencia-7">Piensa en cubos perfectos pequeños.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-8">
+    <div class="numero-ejercicio">8</div>
+    <h1>Expresión mixta</h1>
+    <p>Calcula:</p>
+    <p><strong>3³ - √64</strong></p>
+    <div class="obm-visual">3³ = 27 y √64 = 8</div>
+    <input id="respuesta-potencia-8" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-8">?</div>
+    <div id="resultado-potencia-8">Primero potencia y raíz, después resta.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-9">
+    <div class="numero-ejercicio">9</div>
+    <h1>Dos potencias</h1>
+    <p>Calcula:</p>
+    <p><strong>2⁵ + 3²</strong></p>
+    <div class="obm-visual">2⁵ = 32 y 3² = 9</div>
+    <input id="respuesta-potencia-9" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-9">?</div>
+    <div id="resultado-potencia-9">Atención: 2⁵ no es 10, es 2 multiplicado 5 veces.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-10">
+    <div class="numero-ejercicio">10</div>
+    <h1>Raíces exactas</h1>
+    <p>Calcula:</p>
+    <p><strong>√144 + ∛64</strong></p>
+    <div class="obm-visual">√144 = 12 y ∛64 = 4</div>
+    <input id="respuesta-potencia-10" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-10">?</div>
+    <div id="resultado-potencia-10">Las dos raíces son exactas.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-11">
+    <div class="numero-ejercicio">11</div>
+    <h1>Expresión numérica</h1>
+    <p>Calcula:</p>
+    <p><strong>(5² - 4²) × 3</strong></p>
+    <div class="obm-visual">5² = 25, 4² = 16, después multiplica por 3</div>
+    <input id="respuesta-potencia-11" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-11">?</div>
+    <div id="resultado-potencia-11">Respeta los paréntesis.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-12">
+    <div class="numero-ejercicio">12</div>
+    <h1>Mezcla con raíz cúbica</h1>
+    <p>Calcula:</p>
+    <p><strong>√196 + 2⁴ - ∛8</strong></p>
+    <div class="obm-visual">√196 = 14, 2⁴ = 16, ∛8 = 2</div>
+    <input id="respuesta-potencia-12" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-12">?</div>
+    <div id="resultado-potencia-12">Resuelve las operaciones especiales antes de sumar y restar.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-13">
+    <div class="numero-ejercicio">13</div>
+    <h1>Potencia mayor</h1>
+    <p>Calcula:</p>
+    <p><strong>3⁴ - 5²</strong></p>
+    <div class="obm-visual">3⁴ = 81 y 5² = 25</div>
+    <input id="respuesta-potencia-13" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-13">?</div>
+    <div id="resultado-potencia-13">Cuida el 3⁴: son cuatro factores 3.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-14">
+    <div class="numero-ejercicio">14</div>
+    <h1>Desafío combinado</h1>
+    <p>Calcula:</p>
+    <p><strong>√225 × ∛125 - 4²</strong></p>
+    <div class="obm-visual">√225 = 15, ∛125 = 5, 4² = 16</div>
+    <input id="respuesta-potencia-14" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-14">?</div>
+    <div id="resultado-potencia-14">Después de las raíces y potencias, multiplica antes de restar.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-potencia-15">
+    <div class="numero-ejercicio">15</div>
+    <h1>Gran desafío</h1>
+    <p>Calcula:</p>
+    <p><strong>(2⁶ - √16) ÷ ∛8</strong></p>
+    <div class="obm-visual">2⁶ = 64, √16 = 4, ∛8 = 2</div>
+    <input id="respuesta-potencia-15" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarPotencia()">
+    <div class="visor-respuesta" id="visor-respuesta-potencia-15">?</div>
+    <div id="resultado-potencia-15">Primero paréntesis, después divide.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-1">
+    <div class="numero-ejercicio">1</div>
+    <h1>Equações</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>x + 3 = 8</strong></p>
+    <div class="obm-visual">Para dejar x sola, resta 3 en los dos lados.</div>
+    <input id="respuesta-equacao-1" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-1">?</div>
+    <div id="resultado-equacao-1">Busca qué número más 3 da 8.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-2">
+    <div class="numero-ejercicio">2</div>
+    <h1>Restando</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>x - 4 = 9</strong></p>
+    <div class="obm-visual">Si x - 4 = 9, suma 4 en los dos lados.</div>
+    <input id="respuesta-equacao-2" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-2">?</div>
+    <div id="resultado-equacao-2">Haz la operación inversa.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-3">
+    <div class="numero-ejercicio">3</div>
+    <h1>Multiplicando</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>2x = 14</strong></p>
+    <div class="obm-visual">2x significa 2 × x.</div>
+    <input id="respuesta-equacao-3" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-3">?</div>
+    <div id="resultado-equacao-3">Divide 14 por 2.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-4">
+    <div class="numero-ejercicio">4</div>
+    <h1>Dividiendo</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>x ÷ 3 = 6</strong></p>
+    <div class="obm-visual">Si x está dividido por 3, multiplica por 3.</div>
+    <input id="respuesta-equacao-4" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-4">?</div>
+    <div id="resultado-equacao-4">¿Qué número dividido por 3 da 6?</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-5">
+    <div class="numero-ejercicio">5</div>
+    <h1>Dos pasos</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>3x + 2 = 17</strong></p>
+    <div class="obm-visual">Primero resta 2. Después divide por 3.</div>
+    <input id="respuesta-equacao-5" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-5">?</div>
+    <div id="resultado-equacao-5">Deshaz las operaciones en orden inverso.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-6">
+    <div class="numero-ejercicio">6</div>
+    <h1>Más dos pasos</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>4x - 7 = 21</strong></p>
+    <div class="obm-visual">Suma 7 y después divide por 4.</div>
+    <input id="respuesta-equacao-6" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-6">?</div>
+    <div id="resultado-equacao-6">Primero elimina el -7.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-7">
+    <div class="numero-ejercicio">7</div>
+    <h1>x en los dos lados</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>2x + 5 = 3x - 4</strong></p>
+    <div class="obm-visual">Quita 2x de los dos lados: 5 = x - 4.</div>
+    <input id="respuesta-equacao-7" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-7">?</div>
+    <div id="resultado-equacao-7">Junta las x de un lado.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-8">
+    <div class="numero-ejercicio">8</div>
+    <h1>Paréntesis escondido</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>(x + 6) ÷ 2 = 10</strong></p>
+    <div class="obm-visual">Multiplica por 2: x + 6 = 20.</div>
+    <input id="respuesta-equacao-8" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-8">?</div>
+    <div id="resultado-equacao-8">Primero deshaz la división.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-9">
+    <div class="numero-ejercicio">9</div>
+    <h1>Equilibrio</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>5x + 3 = 2x + 24</strong></p>
+    <div class="obm-visual">Resta 2x y resta 3: 3x = 21.</div>
+    <input id="respuesta-equacao-9" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-9">?</div>
+    <div id="resultado-equacao-9">Mantén la balanza equilibrada.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-10">
+    <div class="numero-ejercicio">10</div>
+    <h1>Paréntesis</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>3(x + 2) = 24</strong></p>
+    <div class="obm-visual">Divide por 3: x + 2 = 8.</div>
+    <input id="respuesta-equacao-10" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-10">?</div>
+    <div id="resultado-equacao-10">Puedes dividir antes de abrir el paréntesis.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-11">
+    <div class="numero-ejercicio">11</div>
+    <h1>Ambos lados</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>4x - 2 = 2x + 18</strong></p>
+    <div class="obm-visual">Resta 2x y suma 2: 2x = 20.</div>
+    <input id="respuesta-equacao-11" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-11">?</div>
+    <div id="resultado-equacao-11">Organiza letras con letras y números con números.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-12">
+    <div class="numero-ejercicio">12</div>
+    <h1>Fracción</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>(2x + 8) ÷ 4 = 7</strong></p>
+    <div class="obm-visual">Multiplica por 4: 2x + 8 = 28.</div>
+    <input id="respuesta-equacao-12" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-12">?</div>
+    <div id="resultado-equacao-12">Primero elimina la división por 4.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-13">
+    <div class="numero-ejercicio">13</div>
+    <h1>Distribución</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>5(x - 3) = 2x + 6</strong></p>
+    <div class="obm-visual">5x - 15 = 2x + 6.</div>
+    <input id="respuesta-equacao-13" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-13">?</div>
+    <div id="resultado-equacao-13">Multiplica el 5 por todo el paréntesis.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-14">
+    <div class="numero-ejercicio">14</div>
+    <h1>Combinar términos</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>2(x + 5) + 3x = 45</strong></p>
+    <div class="obm-visual">2x + 10 + 3x = 45, entonces 5x + 10 = 45.</div>
+    <input id="respuesta-equacao-14" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-14">?</div>
+    <div id="resultado-equacao-14">Abre el paréntesis y junta las x.</div>
+  </div>
+
+  <div class="contenedor oculto" id="pantalla-equacao-15">
+    <div class="numero-ejercicio">15</div>
+    <h1>Gran desafío</h1>
+    <p>Encuentra el valor de <strong>x</strong>.</p>
+    <p><strong>3(x - 4) + 2(x + 1) = 35</strong></p>
+    <div class="obm-visual">3x - 12 + 2x + 2 = 35, entonces 5x - 10 = 35.</div>
+    <input id="respuesta-equacao-15" type="text" inputmode="none" readonly placeholder="respuesta" oninput="verificarEquacao()">
+    <div class="visor-respuesta" id="visor-respuesta-equacao-15">?</div>
+    <div id="resultado-equacao-15">Abre los dos paréntesis con paciencia.</div>
+  </div>
+
   <div class="contenedor oculto" id="pantalla-cuadrado">
     <div class="numero-ejercicio">1</div>
     <h1>Área del cuadrado</h1>
@@ -1835,7 +2206,22 @@ var verificadores = {
   "respuesta-obm-12": verificarOBM12,
   "respuesta-obm-13": verificarOBM13,
   "respuesta-obm-14": verificarOBM14,
-  "respuesta-obm-15": verificarOBM15
+  "respuesta-obm-15": verificarOBM15,
+  "respuesta-potencia-1": verificarPotencia,
+  "respuesta-potencia-2": verificarPotencia,
+  "respuesta-potencia-3": verificarPotencia,
+  "respuesta-potencia-4": verificarPotencia,
+  "respuesta-potencia-5": verificarPotencia,
+  "respuesta-potencia-6": verificarPotencia,
+  "respuesta-potencia-7": verificarPotencia,
+  "respuesta-potencia-8": verificarPotencia,
+  "respuesta-potencia-9": verificarPotencia,
+  "respuesta-potencia-10": verificarPotencia,
+  "respuesta-potencia-11": verificarPotencia,
+  "respuesta-potencia-12": verificarPotencia,
+  "respuesta-potencia-13": verificarPotencia,
+  "respuesta-potencia-14": verificarPotencia,
+  "respuesta-potencia-15": verificarPotencia
 };
 
 var visores = {
@@ -1866,7 +2252,22 @@ var visores = {
   "respuesta-obm-12": "visor-respuesta-obm-12",
   "respuesta-obm-13": "visor-respuesta-obm-13",
   "respuesta-obm-14": "visor-respuesta-obm-14",
-  "respuesta-obm-15": "visor-respuesta-obm-15"
+  "respuesta-obm-15": "visor-respuesta-obm-15",
+  "respuesta-potencia-1": "visor-respuesta-potencia-1",
+  "respuesta-potencia-2": "visor-respuesta-potencia-2",
+  "respuesta-potencia-3": "visor-respuesta-potencia-3",
+  "respuesta-potencia-4": "visor-respuesta-potencia-4",
+  "respuesta-potencia-5": "visor-respuesta-potencia-5",
+  "respuesta-potencia-6": "visor-respuesta-potencia-6",
+  "respuesta-potencia-7": "visor-respuesta-potencia-7",
+  "respuesta-potencia-8": "visor-respuesta-potencia-8",
+  "respuesta-potencia-9": "visor-respuesta-potencia-9",
+  "respuesta-potencia-10": "visor-respuesta-potencia-10",
+  "respuesta-potencia-11": "visor-respuesta-potencia-11",
+  "respuesta-potencia-12": "visor-respuesta-potencia-12",
+  "respuesta-potencia-13": "visor-respuesta-potencia-13",
+  "respuesta-potencia-14": "visor-respuesta-potencia-14",
+  "respuesta-potencia-15": "visor-respuesta-potencia-15"
 };
 
 var respuestas = {
@@ -1897,7 +2298,22 @@ var respuestas = {
   "respuesta-obm-12": "",
   "respuesta-obm-13": "",
   "respuesta-obm-14": "",
-  "respuesta-obm-15": ""
+  "respuesta-obm-15": "",
+  "respuesta-potencia-1": "",
+  "respuesta-potencia-2": "",
+  "respuesta-potencia-3": "",
+  "respuesta-potencia-4": "",
+  "respuesta-potencia-5": "",
+  "respuesta-potencia-6": "",
+  "respuesta-potencia-7": "",
+  "respuesta-potencia-8": "",
+  "respuesta-potencia-9": "",
+  "respuesta-potencia-10": "",
+  "respuesta-potencia-11": "",
+  "respuesta-potencia-12": "",
+  "respuesta-potencia-13": "",
+  "respuesta-potencia-14": "",
+  "respuesta-potencia-15": ""
 };
 
 var placeholders = {
@@ -1917,7 +2333,22 @@ var placeholders = {
   "respuesta-obm-12": "?",
   "respuesta-obm-13": "?",
   "respuesta-obm-14": "?",
-  "respuesta-obm-15": "?"
+  "respuesta-obm-15": "?",
+  "respuesta-potencia-1": "?",
+  "respuesta-potencia-2": "?",
+  "respuesta-potencia-3": "?",
+  "respuesta-potencia-4": "?",
+  "respuesta-potencia-5": "?",
+  "respuesta-potencia-6": "?",
+  "respuesta-potencia-7": "?",
+  "respuesta-potencia-8": "?",
+  "respuesta-potencia-9": "?",
+  "respuesta-potencia-10": "?",
+  "respuesta-potencia-11": "?",
+  "respuesta-potencia-12": "?",
+  "respuesta-potencia-13": "?",
+  "respuesta-potencia-14": "?",
+  "respuesta-potencia-15": "?"
 };
 
 var temporizadorProximo = null;
@@ -1928,6 +2359,50 @@ var primosAvanzadosSeleccionados = {};
 var tablaPrimos = {};
 var tablaPrimosAvanzada = {};
 var claveProgreso = "nati-matematica-progreso-v1";
+var ejerciciosPotencia = {
+  "respuesta-potencia-1": { numero: 1, respuesta: "8", mensaje: "¡Muy bien, Nati! Empezaste con una potencia perfecta.", error: "2 × 2 × 2 = 8." },
+  "respuesta-potencia-2": { numero: 2, respuesta: "25", mensaje: "¡Eso! El cuadrado de 5 quedó clarísimo.", error: "5 × 5 = 25." },
+  "respuesta-potencia-3": { numero: 3, respuesta: "1000", mensaje: "¡Excelente! Dominaste el cubo de 10.", error: "10 × 10 × 10 = 1000." },
+  "respuesta-potencia-4": { numero: 4, respuesta: "25", mensaje: "¡Muy bien! Resolviste primero las potencias.", error: "4² + 3² = 16 + 9 = 25." },
+  "respuesta-potencia-5": { numero: 5, respuesta: "7", mensaje: "¡Genial! Encontraste una raíz cuadrada exacta.", error: "7 × 7 = 49." },
+  "respuesta-potencia-6": { numero: 6, respuesta: "17", mensaje: "¡Eso, Nati! Mezclaste raíz y potencia con calma.", error: "√81 + 2³ = 9 + 8 = 17." },
+  "respuesta-potencia-7": { numero: 7, respuesta: "3", mensaje: "¡Muy bien! 3 es la raíz cúbica de 27.", error: "3 × 3 × 3 = 27." },
+  "respuesta-potencia-8": { numero: 8, respuesta: "19", mensaje: "¡Excelente atención al orden!", error: "3³ - √64 = 27 - 8 = 19." },
+  "respuesta-potencia-9": { numero: 9, respuesta: "41", mensaje: "¡Qué bien! Ya estás más fuerte con exponentes.", error: "2⁵ + 3² = 32 + 9 = 41." },
+  "respuesta-potencia-10": { numero: 10, respuesta: "16", mensaje: "¡Muito bem! Dos raíces exactas sin miedo.", error: "√144 + ∛64 = 12 + 4 = 16." },
+  "respuesta-potencia-11": { numero: 11, respuesta: "27", mensaje: "¡Muy buena estrategia! Respetaste los paréntesis.", error: "(25 - 16) × 3 = 9 × 3 = 27." },
+  "respuesta-potencia-12": { numero: 12, respuesta: "28", mensaje: "¡Brillante! Hiciste una expresión larga paso a paso.", error: "√196 + 2⁴ - ∛8 = 14 + 16 - 2 = 28." },
+  "respuesta-potencia-13": { numero: 13, respuesta: "56", mensaje: "¡Eso! Ya manejas potencias más grandes.", error: "3⁴ - 5² = 81 - 25 = 56." },
+  "respuesta-potencia-14": { numero: 14, respuesta: "59", mensaje: "¡Excelente, Nati! Esa expresión exigía pensar.", error: "√225 × ∛125 - 4² = 15 × 5 - 16 = 59." },
+  "respuesta-potencia-15": { numero: 15, respuesta: "30", mensaje: "Haz ganado!!! Potenciação e radiciação conquistadas.", error: "(2⁶ - √16) ÷ ∛8 = (64 - 4) ÷ 2 = 30.", final: true }
+};
+
+var ejerciciosEquacoes = {
+  "respuesta-equacao-1": { numero: 1, respuesta: "5", mensaje: "¡Muy bien, Nati! Dejaste la x solita.", error: "x + 3 = 8, entonces x = 5." },
+  "respuesta-equacao-2": { numero: 2, respuesta: "13", mensaje: "¡Eso! Usaste la operación inversa.", error: "x - 4 = 9, entonces x = 13." },
+  "respuesta-equacao-3": { numero: 3, respuesta: "7", mensaje: "¡Excelente! Dividir ayudó a encontrar x.", error: "2x = 14, entonces x = 7." },
+  "respuesta-equacao-4": { numero: 4, respuesta: "18", mensaje: "¡Muy bien! Deshiciste la división.", error: "x ÷ 3 = 6, entonces x = 18." },
+  "respuesta-equacao-5": { numero: 5, respuesta: "5", mensaje: "¡Buenísimo! Resolviste una ecuación de dos pasos.", error: "3x + 2 = 17, entonces 3x = 15 y x = 5." },
+  "respuesta-equacao-6": { numero: 6, respuesta: "7", mensaje: "¡Eso, Nati! Orden y calma dan resultado.", error: "4x - 7 = 21, entonces 4x = 28 y x = 7." },
+  "respuesta-equacao-7": { numero: 7, respuesta: "9", mensaje: "¡Muy buena! Ya puedes mover x entre lados.", error: "2x + 5 = 3x - 4, entonces x = 9." },
+  "respuesta-equacao-8": { numero: 8, respuesta: "14", mensaje: "¡Excelente! Quitaste la división primero.", error: "(x + 6) ÷ 2 = 10, entonces x + 6 = 20 y x = 14." },
+  "respuesta-equacao-9": { numero: 9, respuesta: "7", mensaje: "¡Muy bien! Equilibraste los dos lados.", error: "5x + 3 = 2x + 24, entonces 3x = 21 y x = 7." },
+  "respuesta-equacao-10": { numero: 10, respuesta: "6", mensaje: "¡Genial! El paréntesis no te asustó.", error: "3(x + 2) = 24, entonces x + 2 = 8 y x = 6." },
+  "respuesta-equacao-11": { numero: 11, respuesta: "10", mensaje: "¡Muito bem! Separaste letras y números.", error: "4x - 2 = 2x + 18, entonces 2x = 20 y x = 10." },
+  "respuesta-equacao-12": { numero: 12, respuesta: "10", mensaje: "¡Brillante! Trabajaste con fracción sin perderte.", error: "(2x + 8) ÷ 4 = 7, entonces 2x + 8 = 28 y x = 10." },
+  "respuesta-equacao-13": { numero: 13, respuesta: "7", mensaje: "¡Excelente distribución!", error: "5(x - 3) = 2x + 6, entonces 5x - 15 = 2x + 6 y x = 7." },
+  "respuesta-equacao-14": { numero: 14, respuesta: "7", mensaje: "¡Qué bien combinaste términos!", error: "2(x + 5) + 3x = 45, entonces 5x + 10 = 45 y x = 7." },
+  "respuesta-equacao-15": { numero: 15, respuesta: "9", mensaje: "Haz ganado!!! Equações conquistadas con mucha cabeza.", error: "3(x - 4) + 2(x + 1) = 35, entonces 5x - 10 = 35 y x = 9.", final: true }
+};
+
+for (var numeroEquacao = 1; numeroEquacao <= 15; numeroEquacao++) {
+  var idEquacao = "respuesta-equacao-" + numeroEquacao;
+
+  verificadores[idEquacao] = verificarEquacao;
+  visores[idEquacao] = "visor-" + idEquacao;
+  respuestas[idEquacao] = "";
+  placeholders[idEquacao] = "?";
+}
 
 function pasarLuego(funcionProxima) {
   if (temporizadorProximo) {
@@ -1983,8 +2458,26 @@ function iniciarTeclado() {
     "respuesta-obm-12",
     "respuesta-obm-13",
     "respuesta-obm-14",
-    "respuesta-obm-15"
+    "respuesta-obm-15",
+    "respuesta-potencia-1",
+    "respuesta-potencia-2",
+    "respuesta-potencia-3",
+    "respuesta-potencia-4",
+    "respuesta-potencia-5",
+    "respuesta-potencia-6",
+    "respuesta-potencia-7",
+    "respuesta-potencia-8",
+    "respuesta-potencia-9",
+    "respuesta-potencia-10",
+    "respuesta-potencia-11",
+    "respuesta-potencia-12",
+    "respuesta-potencia-13",
+    "respuesta-potencia-14",
+    "respuesta-potencia-15"
   ];
+  for (var i = 1; i <= 15; i++) {
+    ids.push("respuesta-equacao-" + i);
+  }
 
   if (estado) {
     estado.innerHTML = "JavaScript activo";
@@ -2015,6 +2508,7 @@ function iniciarTeclado() {
 
   if (document.getElementById("pantalla-menu")) {
     ocultarTeclado();
+    actualizarBotonMenu();
   } else {
     seleccionarRespuesta("respuesta");
   }
@@ -2037,6 +2531,8 @@ function guardarProgreso() {
     }));
   } catch (error) {
   }
+
+  actualizarBotonMenu();
 }
 
 function restaurarProgreso() {
@@ -2068,6 +2564,7 @@ function restaurarProgreso() {
 
   if (progreso.pantalla == "pantalla-menu") {
     ocultarTeclado();
+    actualizarBotonMenu();
     return true;
   }
 
@@ -2079,6 +2576,7 @@ function restaurarProgreso() {
     actualizarVisor(respuestaActiva);
   }
 
+  actualizarBotonMenu();
   return true;
 }
 
@@ -2134,6 +2632,26 @@ function mostrarPantallaGuardada(id) {
   if (pantalla) {
     pantalla.className = "contenedor";
   }
+}
+
+function actualizarBotonMenu() {
+  var boton = document.getElementById("boton-menu-app");
+
+  if (!boton) {
+    return;
+  }
+
+  if (obtenerPantallaActual() == "pantalla-menu") {
+    boton.className = "boton-menu-app oculto";
+  } else {
+    boton.className = "boton-menu-app";
+  }
+}
+
+function volverMenu() {
+  mostrarPantallaGuardada("pantalla-menu");
+  ocultarTeclado();
+  guardarProgreso();
 }
 
 function actualizarTodosLosVisores() {
@@ -2282,6 +2800,36 @@ function mostrarOBM() {
   }
 
   seleccionarRespuesta("respuesta-obm-1");
+}
+
+function mostrarPotencia() {
+  var menu = document.getElementById("pantalla-menu");
+  var primeraPantalla = document.getElementById("pantalla-potencia-1");
+
+  if (menu) {
+    menu.className = "menu-principal oculto";
+  }
+
+  if (primeraPantalla) {
+    primeraPantalla.className = "contenedor";
+  }
+
+  seleccionarRespuesta("respuesta-potencia-1");
+}
+
+function mostrarEquacoes() {
+  var menu = document.getElementById("pantalla-menu");
+  var primeraPantalla = document.getElementById("pantalla-equacao-1");
+
+  if (menu) {
+    menu.className = "menu-principal oculto";
+  }
+
+  if (primeraPantalla) {
+    primeraPantalla.className = "contenedor";
+  }
+
+  seleccionarRespuesta("respuesta-equacao-1");
 }
 
 function togglePrimo(numero) {
@@ -2449,8 +2997,26 @@ function seleccionarRespuestaVisible() {
     ["pantalla-obm-12", "respuesta-obm-12"],
     ["pantalla-obm-13", "respuesta-obm-13"],
     ["pantalla-obm-14", "respuesta-obm-14"],
-    ["pantalla-obm-15", "respuesta-obm-15"]
+    ["pantalla-obm-15", "respuesta-obm-15"],
+    ["pantalla-potencia-1", "respuesta-potencia-1"],
+    ["pantalla-potencia-2", "respuesta-potencia-2"],
+    ["pantalla-potencia-3", "respuesta-potencia-3"],
+    ["pantalla-potencia-4", "respuesta-potencia-4"],
+    ["pantalla-potencia-5", "respuesta-potencia-5"],
+    ["pantalla-potencia-6", "respuesta-potencia-6"],
+    ["pantalla-potencia-7", "respuesta-potencia-7"],
+    ["pantalla-potencia-8", "respuesta-potencia-8"],
+    ["pantalla-potencia-9", "respuesta-potencia-9"],
+    ["pantalla-potencia-10", "respuesta-potencia-10"],
+    ["pantalla-potencia-11", "respuesta-potencia-11"],
+    ["pantalla-potencia-12", "respuesta-potencia-12"],
+    ["pantalla-potencia-13", "respuesta-potencia-13"],
+    ["pantalla-potencia-14", "respuesta-potencia-14"],
+    ["pantalla-potencia-15", "respuesta-potencia-15"]
   ];
+  for (var j = 1; j <= 15; j++) {
+    pares.push(["pantalla-equacao-" + j, "respuesta-equacao-" + j]);
+  }
 
   for (var i = 0; i < pares.length; i++) {
     var pantalla = document.getElementById(pares[i][0]);
@@ -3336,10 +3902,112 @@ function verificarOBM15() {
   }
 }
 
+function mostrarPotenciaPantalla(numero) {
+  var anterior = document.getElementById("pantalla-potencia-" + (numero - 1));
+  var actual = document.getElementById("pantalla-potencia-" + numero);
+
+  if (anterior) {
+    anterior.className = "contenedor oculto";
+  }
+
+  if (actual) {
+    actual.className = "contenedor";
+  }
+
+  seleccionarRespuesta("respuesta-potencia-" + numero);
+}
+
+function verificarPotencia() {
+  var id = respuestaActiva;
+  var ejercicio = ejerciciosPotencia[id];
+  var respuesta = respuestas[id];
+  var resultado;
+
+  if (!ejercicio) {
+    return;
+  }
+
+  resultado = document.getElementById("resultado-potencia-" + ejercicio.numero);
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Resuelve con calma. Puedes tocar Ayuda si lo necesitas.";
+    return;
+  }
+
+  if (respuesta == ejercicio.respuesta) {
+    if (ejercicio.final) {
+      resultado.innerHTML = '<div class="correcto">' + ejercicio.mensaje + '</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
+      ocultarTeclado();
+      return;
+    }
+
+    resultado.innerHTML = '<div class="correcto">' + ejercicio.mensaje + '</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(function() {
+      mostrarPotenciaPantalla(ejercicio.numero + 1);
+    });
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">' + ejercicio.error + '</div>';
+  }
+}
+
+function mostrarEquacaoPantalla(numero) {
+  var anterior = document.getElementById("pantalla-equacao-" + (numero - 1));
+  var actual = document.getElementById("pantalla-equacao-" + numero);
+
+  if (anterior) {
+    anterior.className = "contenedor oculto";
+  }
+
+  if (actual) {
+    actual.className = "contenedor";
+  }
+
+  seleccionarRespuesta("respuesta-equacao-" + numero);
+}
+
+function verificarEquacao() {
+  var id = respuestaActiva;
+  var ejercicio = ejerciciosEquacoes[id];
+  var respuesta = respuestas[id];
+  var resultado;
+
+  if (!ejercicio) {
+    return;
+  }
+
+  resultado = document.getElementById("resultado-equacao-" + ejercicio.numero);
+
+  if (respuesta == "") {
+    resultado.innerHTML = "Encuentra el valor de x. Puedes tocar Ayuda si lo necesitas.";
+    return;
+  }
+
+  if (respuesta == ejercicio.respuesta) {
+    if (ejercicio.final) {
+      resultado.innerHTML = '<div class="correcto">' + ejercicio.mensaje + '</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
+      ocultarTeclado();
+      return;
+    }
+
+    resultado.innerHTML = '<div class="correcto">' + ejercicio.mensaje + '</div><div class="medalla">🏅</div>';
+    ocultarTeclado();
+    pasarLuego(function() {
+      mostrarEquacaoPantalla(ejercicio.numero + 1);
+    });
+  } else {
+    resultado.innerHTML = '<div class="incorrecto">' + ejercicio.error + '</div>';
+  }
+}
+
   </script>
 
 </body>
 </html>
+
+
+
+
 
 
 
