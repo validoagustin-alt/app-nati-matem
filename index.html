@@ -1927,6 +1927,7 @@ var primosSeleccionados = {};
 var primosAvanzadosSeleccionados = {};
 var tablaPrimos = {};
 var tablaPrimosAvanzada = {};
+var claveProgreso = "nati-matematica-progreso-v1";
 
 function pasarLuego(funcionProxima) {
   if (temporizadorProximo) {
@@ -2008,10 +2009,189 @@ function iniciarTeclado() {
     }
   }
 
+  if (restaurarProgreso()) {
+    return;
+  }
+
   if (document.getElementById("pantalla-menu")) {
     ocultarTeclado();
   } else {
     seleccionarRespuesta("respuesta");
+  }
+}
+
+function guardarProgreso() {
+  if (typeof localStorage == "undefined") {
+    return;
+  }
+
+  try {
+    localStorage.setItem(claveProgreso, JSON.stringify({
+      pantalla: obtenerPantallaActual(),
+      respuestaActiva: respuestaActiva,
+      respuestas: respuestas,
+      primosSeleccionados: primosSeleccionados,
+      primosAvanzadosSeleccionados: primosAvanzadosSeleccionados,
+      tablaPrimos: tablaPrimos,
+      tablaPrimosAvanzada: tablaPrimosAvanzada
+    }));
+  } catch (error) {
+  }
+}
+
+function restaurarProgreso() {
+  var progreso;
+
+  if (typeof localStorage == "undefined") {
+    return false;
+  }
+
+  try {
+    progreso = JSON.parse(localStorage.getItem(claveProgreso) || "null");
+  } catch (error) {
+    return false;
+  }
+
+  if (!progreso || !progreso.pantalla || !document.getElementById(progreso.pantalla)) {
+    return false;
+  }
+
+  copiarValores(respuestas, progreso.respuestas);
+  copiarValores(primosSeleccionados, progreso.primosSeleccionados);
+  copiarValores(primosAvanzadosSeleccionados, progreso.primosAvanzadosSeleccionados);
+  copiarValores(tablaPrimos, progreso.tablaPrimos);
+  copiarValores(tablaPrimosAvanzada, progreso.tablaPrimosAvanzada);
+
+  mostrarPantallaGuardada(progreso.pantalla);
+  restaurarSeleccionesPrimos();
+  actualizarTodosLosVisores();
+
+  if (progreso.pantalla == "pantalla-menu") {
+    ocultarTeclado();
+    return true;
+  }
+
+  if (!seleccionarRespuestaVisible()) {
+    ocultarTeclado();
+  }
+
+  if (respuestaActiva == progreso.respuestaActiva && visores[respuestaActiva]) {
+    actualizarVisor(respuestaActiva);
+  }
+
+  return true;
+}
+
+function copiarValores(destino, origen) {
+  var clave;
+
+  if (!origen) {
+    return;
+  }
+
+  for (clave in origen) {
+    if (origen.hasOwnProperty(clave)) {
+      destino[clave] = origen[clave];
+    }
+  }
+}
+
+function obtenerPantallaActual() {
+  var menu = document.getElementById("pantalla-menu");
+  var pantallas = document.querySelectorAll(".contenedor");
+
+  if (menu && menu.className.indexOf("oculto") == -1) {
+    return "pantalla-menu";
+  }
+
+  for (var i = 0; i < pantallas.length; i++) {
+    if (pantallas[i].className.indexOf("oculto") == -1) {
+      return pantallas[i].id;
+    }
+  }
+
+  return "pantalla-menu";
+}
+
+function mostrarPantallaGuardada(id) {
+  var menu = document.getElementById("pantalla-menu");
+  var pantallas = document.querySelectorAll(".contenedor");
+  var pantalla = document.getElementById(id);
+
+  if (menu) {
+    menu.className = "menu-principal oculto";
+  }
+
+  for (var i = 0; i < pantallas.length; i++) {
+    pantallas[i].className = "contenedor oculto";
+  }
+
+  if (id == "pantalla-menu" && menu) {
+    menu.className = "menu-principal";
+    return;
+  }
+
+  if (pantalla) {
+    pantalla.className = "contenedor";
+  }
+}
+
+function actualizarTodosLosVisores() {
+  var id;
+
+  for (id in visores) {
+    if (visores.hasOwnProperty(id)) {
+      actualizarVisor(id);
+    }
+  }
+}
+
+function restaurarSeleccionesPrimos() {
+  restaurarBotonesPrimos("#pantalla-primos-1 button", primosSeleccionados);
+  restaurarBotonesPrimos("#pantalla-primos-4 button", primosAvanzadosSeleccionados);
+  restaurarTablaPrimos("#pantalla-primos-2", "data-numero", tablaPrimos);
+  restaurarTablaPrimos("#pantalla-primos-5", "data-numero-avanzado", tablaPrimosAvanzada);
+}
+
+function restaurarBotonesPrimos(selector, seleccionados) {
+  var botones = document.querySelectorAll(selector);
+
+  for (var i = 0; i < botones.length; i++) {
+    botones[i].className = "";
+  }
+
+  for (var numero in seleccionados) {
+    if (seleccionados.hasOwnProperty(numero)) {
+      var boton = document.querySelector(selector.split(" ")[0] + " button[onclick*=\"" + numero + "\"]");
+
+      if (boton) {
+        boton.className = "seleccionado";
+      }
+    }
+  }
+}
+
+function restaurarTablaPrimos(pantallaSelector, atributo, tabla) {
+  var numero;
+
+  for (numero in tabla) {
+    if (tabla.hasOwnProperty(numero)) {
+      var fila = document.querySelector(pantallaSelector + " [" + atributo + "=\"" + numero + "\"]");
+      var botones = fila ? fila.getElementsByTagName("button") : [];
+      var ayudas = fila ? fila.getElementsByTagName("small") : [];
+
+      for (var i = 0; i < botones.length; i++) {
+        botones[i].className = botones[i].innerHTML.toLowerCase() == tabla[numero] ? "seleccionado" : "";
+      }
+
+      if (ayudas.length > 0) {
+        if (atributo == "data-numero") {
+          mostrarAyudaPrimo(numero, tabla[numero]);
+        } else {
+          mostrarAyudaPrimoAvanzado(numero);
+        }
+      }
+    }
   }
 }
 
@@ -2086,6 +2266,7 @@ function mostrarPrimos() {
   }
 
   ocultarTeclado();
+  guardarProgreso();
 }
 
 function mostrarOBM() {
@@ -2119,6 +2300,7 @@ function togglePrimo(numero) {
   }
 
   verificarPrimosSeleccionados();
+  guardarProgreso();
 }
 
 function verificarPrimosSeleccionados() {
@@ -2145,6 +2327,7 @@ function mostrarPrimosTabla() {
   document.getElementById("pantalla-primos-1").className = "contenedor oculto";
   document.getElementById("pantalla-primos-2").className = "contenedor";
   ocultarTeclado();
+  guardarProgreso();
 }
 
 function elegirTipoPrimo(numero, tipo) {
@@ -2165,6 +2348,7 @@ function elegirTipoPrimo(numero, tipo) {
 
   mostrarAyudaPrimo(numero, tipo);
   verificarTablaPrimos();
+  guardarProgreso();
 }
 
 function mostrarAyudaPrimo(numero, tipo) {
@@ -2273,9 +2457,11 @@ function seleccionarRespuestaVisible() {
 
     if (pantalla && pantalla.className.indexOf("oculto") == -1) {
       seleccionarRespuesta(pares[i][1]);
-      return;
+      return true;
     }
   }
+
+  return false;
 }
 
 function crearSelector(id) {
@@ -2309,6 +2495,7 @@ function seleccionarRespuesta(id) {
     mostrarTeclado();
     visor.className = visor.className + " activo";
     actualizarVisor(id);
+    guardarProgreso();
   }
 }
 
@@ -2353,6 +2540,7 @@ function tocarTeclaValor(tecla) {
   }
 
   actualizarVisor(respuestaActiva);
+  guardarProgreso();
 
   if (verificarActual) {
     verificarActual();
@@ -2363,6 +2551,7 @@ function responderConTexto(id, valor) {
   respuestas[id] = valor;
   seleccionarRespuesta(id);
   actualizarVisor(id);
+  guardarProgreso();
 
   if (verificadores[id]) {
     verificadores[id]();
@@ -2656,6 +2845,7 @@ function mostrarPrimosAvanzados() {
   document.getElementById("pantalla-primos-3").className = "contenedor oculto";
   document.getElementById("pantalla-primos-4").className = "contenedor";
   ocultarTeclado();
+  guardarProgreso();
 }
 
 function togglePrimoAvanzado(numero) {
@@ -2674,6 +2864,7 @@ function togglePrimoAvanzado(numero) {
   }
 
   verificarPrimosAvanzados();
+  guardarProgreso();
 }
 
 function verificarPrimosAvanzados() {
@@ -2700,6 +2891,7 @@ function mostrarPrimosTablaAvanzada() {
   document.getElementById("pantalla-primos-4").className = "contenedor oculto";
   document.getElementById("pantalla-primos-5").className = "contenedor";
   ocultarTeclado();
+  guardarProgreso();
 }
 
 function elegirTipoPrimoAvanzado(numero, tipo) {
@@ -2720,6 +2912,7 @@ function elegirTipoPrimoAvanzado(numero, tipo) {
 
   mostrarAyudaPrimoAvanzado(numero);
   verificarTablaPrimosAvanzada();
+  guardarProgreso();
 }
 
 function mostrarAyudaPrimoAvanzado(numero) {
@@ -3147,6 +3340,7 @@ function verificarOBM15() {
 
 </body>
 </html>
+
 
 
 
