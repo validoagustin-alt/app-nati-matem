@@ -2377,39 +2377,39 @@ var tablaPrimosAvanzada = {};
 var ultimasPantallas = {};
 var claveProgreso = "nati-matematica-progreso-v1";
 var ejerciciosPotencia = {
-  "respuesta-potencia-1": { numero: 1, respuesta: "8", mensaje: "¡Muy bien, Nati! Empezaste con una potencia perfecta.", error: "2 × 2 × 2 = 8." },
-  "respuesta-potencia-2": { numero: 2, respuesta: "25", mensaje: "¡Eso! El cuadrado de 5 quedó clarísimo.", error: "5 × 5 = 25." },
-  "respuesta-potencia-3": { numero: 3, respuesta: "1000", mensaje: "¡Excelente! Dominaste el cubo de 10.", error: "10 × 10 × 10 = 1000." },
-  "respuesta-potencia-4": { numero: 4, respuesta: "25", mensaje: "¡Muy bien! Resolviste primero las potencias.", error: "4² + 3² = 16 + 9 = 25." },
-  "respuesta-potencia-5": { numero: 5, respuesta: "7", mensaje: "¡Genial! Encontraste una raíz cuadrada exacta.", error: "7 × 7 = 49." },
-  "respuesta-potencia-6": { numero: 6, respuesta: "17", mensaje: "¡Eso, Nati! Mezclaste raíz y potencia con calma.", error: "√81 + 2³ = 9 + 8 = 17." },
-  "respuesta-potencia-7": { numero: 7, respuesta: "3", mensaje: "¡Muy bien! 3 es la raíz cúbica de 27.", error: "3 × 3 × 3 = 27." },
-  "respuesta-potencia-8": { numero: 8, respuesta: "19", mensaje: "¡Excelente atención al orden!", error: "3³ - √64 = 27 - 8 = 19." },
-  "respuesta-potencia-9": { numero: 9, respuesta: "41", mensaje: "¡Qué bien! Ya estás más fuerte con exponentes.", error: "2⁵ + 3² = 32 + 9 = 41." },
-  "respuesta-potencia-10": { numero: 10, respuesta: "16", mensaje: "¡Muito bem! Dos raíces exactas sin miedo.", error: "√144 + ∛64 = 12 + 4 = 16." },
-  "respuesta-potencia-11": { numero: 11, respuesta: "27", mensaje: "¡Muy buena estrategia! Respetaste los paréntesis.", error: "(25 - 16) × 3 = 9 × 3 = 27." },
-  "respuesta-potencia-12": { numero: 12, respuesta: "28", mensaje: "¡Brillante! Hiciste una expresión larga paso a paso.", error: "√196 + 2⁴ - ∛8 = 14 + 16 - 2 = 28." },
-  "respuesta-potencia-13": { numero: 13, respuesta: "56", mensaje: "¡Eso! Ya manejas potencias más grandes.", error: "3⁴ - 5² = 81 - 25 = 56." },
-  "respuesta-potencia-14": { numero: 14, respuesta: "59", mensaje: "¡Excelente, Nati! Esa expresión exigía pensar.", error: "√225 × ∛125 - 4² = 15 × 5 - 16 = 59." },
-  "respuesta-potencia-15": { numero: 15, respuesta: "30", mensaje: "Haz ganado!!! Potenciação e radiciação conquistadas.", error: "(2⁶ - √16) ÷ ∛8 = (64 - 4) ÷ 2 = 30.", final: true }
+  "respuesta-potencia-1": { numero: 1, respuesta: "8", mensaje: "¡Muy bien, Nati! Empezaste con una potencia perfecta.", error: "Tip: escribe la multiplicación repetida antes de responder." },
+  "respuesta-potencia-2": { numero: 2, respuesta: "25", mensaje: "¡Eso! El cuadrado de 5 quedó clarísimo.", error: "Tip: al cuadrado significa multiplicar el número por sí mismo." },
+  "respuesta-potencia-3": { numero: 3, respuesta: "1000", mensaje: "¡Excelente! Dominaste el cubo de 10.", error: "Tip: al cubo significa usar tres factores iguales." },
+  "respuesta-potencia-4": { numero: 4, respuesta: "25", mensaje: "¡Muy bien! Resolviste primero las potencias.", error: "Tip: calcula cada potencia por separado y recién después suma." },
+  "respuesta-potencia-5": { numero: 5, respuesta: "7", mensaje: "¡Genial! Encontraste una raíz cuadrada exacta.", error: "Tip: busca qué número multiplicado por sí mismo forma el número dado." },
+  "respuesta-potencia-6": { numero: 6, respuesta: "17", mensaje: "¡Eso, Nati! Mezclaste raíz y potencia con calma.", error: "Tip: resuelve primero la raíz y la potencia; después suma." },
+  "respuesta-potencia-7": { numero: 7, respuesta: "3", mensaje: "¡Muy bien! 3 es la raíz cúbica de 27.", error: "Tip: la raíz cúbica busca un número repetido tres veces como factor." },
+  "respuesta-potencia-8": { numero: 8, respuesta: "19", mensaje: "¡Excelente atención al orden!", error: "Tip: primero calcula la potencia y la raíz, y solo después resta." },
+  "respuesta-potencia-9": { numero: 9, respuesta: "41", mensaje: "¡Qué bien! Ya estás más fuerte con exponentes.", error: "Tip: cuidado, el exponente no se multiplica por la base; indica factores repetidos." },
+  "respuesta-potencia-10": { numero: 10, respuesta: "16", mensaje: "¡Muito bem! Dos raíces exactas sin miedo.", error: "Tip: resuelve cada raíz exacta por separado antes de sumar." },
+  "respuesta-potencia-11": { numero: 11, respuesta: "27", mensaje: "¡Muy buena estrategia! Respetaste los paréntesis.", error: "Tip: primero potencias, después el paréntesis, y al final la multiplicación." },
+  "respuesta-potencia-12": { numero: 12, respuesta: "28", mensaje: "¡Brillante! Hiciste una expresión larga paso a paso.", error: "Tip: separa la expresión en tres partes pequeñas antes de juntar todo." },
+  "respuesta-potencia-13": { numero: 13, respuesta: "56", mensaje: "¡Eso! Ya manejas potencias más grandes.", error: "Tip: revisa cuántos factores tiene la potencia mayor." },
+  "respuesta-potencia-14": { numero: 14, respuesta: "59", mensaje: "¡Excelente, Nati! Esa expresión exigía pensar.", error: "Tip: resuelve raíces y potencias, luego multiplica antes de restar." },
+  "respuesta-potencia-15": { numero: 15, respuesta: "30", mensaje: "Haz ganado!!! Potenciação e radiciação conquistadas.", error: "Tip: resuelve el paréntesis completo antes de dividir.", final: true }
 };
 
 var ejerciciosEquacoes = {
-  "respuesta-equacao-1": { numero: 1, respuesta: "5", mensaje: "¡Muy bien, Nati! Dejaste la x solita.", error: "x + 3 = 8, entonces x = 5." },
-  "respuesta-equacao-2": { numero: 2, respuesta: "13", mensaje: "¡Eso! Usaste la operación inversa.", error: "x - 4 = 9, entonces x = 13." },
-  "respuesta-equacao-3": { numero: 3, respuesta: "7", mensaje: "¡Excelente! Dividir ayudó a encontrar x.", error: "2x = 14, entonces x = 7." },
-  "respuesta-equacao-4": { numero: 4, respuesta: "18", mensaje: "¡Muy bien! Deshiciste la división.", error: "x ÷ 3 = 6, entonces x = 18." },
-  "respuesta-equacao-5": { numero: 5, respuesta: "5", mensaje: "¡Buenísimo! Resolviste una ecuación de dos pasos.", error: "3x + 2 = 17, entonces 3x = 15 y x = 5." },
-  "respuesta-equacao-6": { numero: 6, respuesta: "7", mensaje: "¡Eso, Nati! Orden y calma dan resultado.", error: "4x - 7 = 21, entonces 4x = 28 y x = 7." },
-  "respuesta-equacao-7": { numero: 7, respuesta: "9", mensaje: "¡Muy buena! Ya puedes mover x entre lados.", error: "2x + 5 = 3x - 4, entonces x = 9." },
-  "respuesta-equacao-8": { numero: 8, respuesta: "14", mensaje: "¡Excelente! Quitaste la división primero.", error: "(x + 6) ÷ 2 = 10, entonces x + 6 = 20 y x = 14." },
-  "respuesta-equacao-9": { numero: 9, respuesta: "7", mensaje: "¡Muy bien! Equilibraste los dos lados.", error: "5x + 3 = 2x + 24, entonces 3x = 21 y x = 7." },
-  "respuesta-equacao-10": { numero: 10, respuesta: "6", mensaje: "¡Genial! El paréntesis no te asustó.", error: "3(x + 2) = 24, entonces x + 2 = 8 y x = 6." },
-  "respuesta-equacao-11": { numero: 11, respuesta: "10", mensaje: "¡Muito bem! Separaste letras y números.", error: "4x - 2 = 2x + 18, entonces 2x = 20 y x = 10." },
-  "respuesta-equacao-12": { numero: 12, respuesta: "10", mensaje: "¡Brillante! Trabajaste con fracción sin perderte.", error: "(2x + 8) ÷ 4 = 7, entonces 2x + 8 = 28 y x = 10." },
-  "respuesta-equacao-13": { numero: 13, respuesta: "7", mensaje: "¡Excelente distribución!", error: "5(x - 3) = 2x + 6, entonces 5x - 15 = 2x + 6 y x = 7." },
-  "respuesta-equacao-14": { numero: 14, respuesta: "7", mensaje: "¡Qué bien combinaste términos!", error: "2(x + 5) + 3x = 45, entonces 5x + 10 = 45 y x = 7." },
-  "respuesta-equacao-15": { numero: 15, respuesta: "9", mensaje: "Haz ganado!!! Equações conquistadas con mucha cabeza.", error: "3(x - 4) + 2(x + 1) = 35, entonces 5x - 10 = 35 y x = 9.", final: true }
+  "respuesta-equacao-1": { numero: 1, respuesta: "5", mensaje: "¡Muy bien, Nati! Dejaste la x solita.", error: "Tip: usa la operación inversa para dejar la x sola." },
+  "respuesta-equacao-2": { numero: 2, respuesta: "13", mensaje: "¡Eso! Usaste la operación inversa.", error: "Tip: si a x le restaron algo, piensa qué operación deshace esa resta." },
+  "respuesta-equacao-3": { numero: 3, respuesta: "7", mensaje: "¡Excelente! Dividir ayudó a encontrar x.", error: "Tip: 2x significa dos grupos iguales de x." },
+  "respuesta-equacao-4": { numero: 4, respuesta: "18", mensaje: "¡Muy bien! Deshiciste la división.", error: "Tip: si x está dividida, usa la operación contraria." },
+  "respuesta-equacao-5": { numero: 5, respuesta: "5", mensaje: "¡Buenísimo! Resolviste una ecuación de dos pasos.", error: "Tip: primero quita lo que se suma o resta; después trabaja con el número que multiplica a x." },
+  "respuesta-equacao-6": { numero: 6, respuesta: "7", mensaje: "¡Eso, Nati! Orden y calma dan resultado.", error: "Tip: elimina primero el número suelto y luego divide." },
+  "respuesta-equacao-7": { numero: 7, respuesta: "9", mensaje: "¡Muy buena! Ya puedes mover x entre lados.", error: "Tip: junta las x de un lado y los números del otro." },
+  "respuesta-equacao-8": { numero: 8, respuesta: "14", mensaje: "¡Excelente! Quitaste la división primero.", error: "Tip: deshaz primero la operación que afecta a todo el paréntesis." },
+  "respuesta-equacao-9": { numero: 9, respuesta: "7", mensaje: "¡Muy bien! Equilibraste los dos lados.", error: "Tip: resta la misma cantidad de x en ambos lados para simplificar." },
+  "respuesta-equacao-10": { numero: 10, respuesta: "6", mensaje: "¡Genial! El paréntesis no te asustó.", error: "Tip: puedes dividir ambos lados antes de resolver lo que queda dentro del paréntesis." },
+  "respuesta-equacao-11": { numero: 11, respuesta: "10", mensaje: "¡Muito bem! Separaste letras y números.", error: "Tip: deja los términos con x juntos y los números juntos." },
+  "respuesta-equacao-12": { numero: 12, respuesta: "10", mensaje: "¡Brillante! Trabajaste con fracción sin perderte.", error: "Tip: elimina primero la división de toda la expresión." },
+  "respuesta-equacao-13": { numero: 13, respuesta: "7", mensaje: "¡Excelente distribución!", error: "Tip: abre el paréntesis multiplicando cada término, no solo el primero." },
+  "respuesta-equacao-14": { numero: 14, respuesta: "7", mensaje: "¡Qué bien combinaste términos!", error: "Tip: abre el paréntesis y después junta los términos con x." },
+  "respuesta-equacao-15": { numero: 15, respuesta: "9", mensaje: "Haz ganado!!! Equações conquistadas con mucha cabeza.", error: "Tip: abre los dos paréntesis y combina términos semejantes antes de despejar x.", final: true }
 };
 
 for (var numeroEquacao = 1; numeroEquacao <= 15; numeroEquacao++) {
@@ -3203,7 +3203,7 @@ function verificar() {
     ocultarTeclado();
     pasarLuego(mostrarRectangulo);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: en un cuadrado, multiplica lado por lado.</div>';
   }
 }
 
@@ -3227,7 +3227,7 @@ function verificarRectangulo() {
     ocultarTeclado();
     pasarLuego(mostrarTotal);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: en un rectángulo, multiplica base por altura.</div>';
   }
 }
 
@@ -3251,7 +3251,7 @@ function verificarTotal() {
     ocultarTeclado();
     pasarLuego(mostrarL);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: separa la figura en un cuadrado y un rectángulo.</div>';
   }
 }
 
@@ -3275,7 +3275,7 @@ function verificarL() {
     ocultarTeclado();
     pasarLuego(mostrarEscalera);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: divide la figura en rectángulos más simples.</div>';
   }
 }
 
@@ -3299,7 +3299,7 @@ function verificarEscalera() {
     ocultarTeclado();
     pasarLuego(mostrarHueco);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: cuenta los bloques iguales y usa el área de cada uno.</div>';
   }
 }
 
@@ -3323,7 +3323,7 @@ function verificarHueco() {
     ocultarTeclado();
     pasarLuego(mostrarDobleHueco);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: calcula el rectángulo completo y descuenta el hueco.</div>';
   }
 }
 
@@ -3347,7 +3347,7 @@ function verificarDobleHueco() {
     ocultarTeclado();
     pasarLuego(mostrarEscaleraGrande);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: observa qué partes faltan antes de multiplicar todo.</div>';
   }
 }
 
@@ -3371,7 +3371,7 @@ function verificarEscaleraGrande() {
     ocultarTeclado();
     pasarLuego(mostrarMarco);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: arma la escalera por filas y suma las áreas.</div>';
   }
 }
 
@@ -3395,7 +3395,7 @@ function verificarMarco() {
     ocultarTeclado();
     pasarLuego(mostrarRectanguloRecorte);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: piensa en el rectángulo exterior menos el centro vacío.</div>';
   }
 }
 
@@ -3419,7 +3419,7 @@ function verificarRectanguloRecorte() {
     ocultarTeclado();
     pasarLuego(mostrarMosaico);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: calcula el total grande y resta la parte recortada.</div>';
   }
 }
 
@@ -3442,7 +3442,7 @@ function verificarMosaico() {
     resultado.innerHTML = '<div class="correcto">Haz ganado!!!</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
     ocultarTeclado();
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: cuenta cuántos bloques forman el mosaico completo.</div>';
   }
 }
 
@@ -3460,7 +3460,7 @@ function verificarPrimosCantidad() {
     ocultarTeclado();
     pasarLuego(mostrarPrimosAvanzados);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez. Pista: son 31, 37, 41, 43 y 47.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: revisa uno por uno si se puede dividir por 2, 3, 5 o 7.</div>';
   }
 }
 
@@ -3601,7 +3601,7 @@ function verificarPrimosFinal() {
     resultado.innerHTML = '<div class="correcto">Haz ganado!!!</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
     ocultarTeclado();
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Intenta otra vez. Los primos son 53, 59, 61, 67, 71, 73 y 79.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: tacha primero los pares, los múltiplos de 3, los de 5 y los de 7.</div>';
   }
 }
 
@@ -3673,7 +3673,7 @@ function verificarOBM3() {
     ocultarTeclado();
     pasarLuego(mostrarOBM4);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Hay 3 grupos de 4 caminos.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: por cada primera opción, cuenta todas las segundas opciones.</div>';
   }
 }
 
@@ -3697,7 +3697,7 @@ function verificarOBM4() {
     ocultarTeclado();
     pasarLuego(mostrarOBM5);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Si quitas el borde, queda un cuadrado de 4 por 4.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: mira cuántas filas y columnas quedan en el centro después de quitar el borde.</div>';
   }
 }
 
@@ -3715,7 +3715,7 @@ function verificarOBM5() {
     ocultarTeclado();
     pasarLuego(mostrarOBM6);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Camino inverso: 22 - 7, y después divide por 3.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: recorre el camino al revés, deshaciendo primero la última operación.</div>';
   }
 }
 
@@ -3739,7 +3739,7 @@ function verificarOBM6() {
     ocultarTeclado();
     pasarLuego(mostrarOBM7);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Cuenta grupos de 4 hasta llegar a 36.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: piensa cuántos grupos iguales se pueden formar.</div>';
   }
 }
 
@@ -3787,7 +3787,7 @@ function verificarOBM8() {
     ocultarTeclado();
     pasarLuego(mostrarOBM9);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Suma los cuatro lados: 7 + 5 + 7 + 5.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: el perímetro rodea toda la figura; usa los dos lados largos y los dos cortos.</div>';
   }
 }
 
@@ -3811,7 +3811,7 @@ function verificarOBM9() {
     ocultarTeclado();
     pasarLuego(mostrarOBM10);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Si Nati es la 6, hay 9 niñas detrás de ella.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: cuenta cuántas niñas quedan después de Nati y no olvides contar a Nati.</div>';
   }
 }
 
@@ -3835,7 +3835,7 @@ function verificarOBM10() {
     ocultarTeclado();
     pasarLuego(mostrarOBM11);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Si la unidad es 3, la decena es 6.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: prueba cifras pequeñas para la unidad y revisa si la decena queda doble.</div>';
   }
 }
 
@@ -3860,7 +3860,7 @@ function verificarOBM11() {
     ocultarTeclado();
     pasarLuego(mostrarOBM12);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">45 días son 6 semanas y 3 días. Lunes + 3 = jueves, que corresponde al número 4.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: separa las semanas completas y mira cuántos días sobran para avanzar.</div>';
   }
 }
 
@@ -3884,7 +3884,7 @@ function verificarOBM12() {
     ocultarTeclado();
     pasarLuego(mostrarOBM13);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">8 billetes de 2 reales valen 16 reales. Faltan 15 reales, que son 3 billetes de 5 reales.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: calcula primero el valor de los billetes de 2 y mira cuánto falta.</div>';
   }
 }
 
@@ -3908,7 +3908,7 @@ function verificarOBM13() {
     ocultarTeclado();
     pasarLuego(mostrarOBM14);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Hay 6 pequeños, 3 medianos y 1 grande.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: cuenta por tamaños: pequeños, medianos y la figura completa.</div>';
   }
 }
 
@@ -3932,7 +3932,7 @@ function verificarOBM14() {
     ocultarTeclado();
     pasarLuego(mostrarOBM15);
   } else {
-    resultado.innerHTML = '<div class="incorrecto">En 14 años: Nati tendrá 25 y su mamá 50.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: recuerda que las dos edades aumentan la misma cantidad de años.</div>';
   }
 }
 
@@ -3955,7 +3955,7 @@ function verificarOBM15() {
     resultado.innerHTML = '<div class="correcto">Haz ganado!!! Tu mente OBM está poderosa.</div><div class="copa-final">🏆</div><div class="brillo-final">★ ★ ★</div>';
     ocultarTeclado();
   } else {
-    resultado.innerHTML = '<div class="incorrecto">Las cifras son 7 y 5: 75 - 57 = 18.</div>';
+    resultado.innerHTML = '<div class="incorrecto">Tip: busca dos cifras que sumen 12 y compara el número con su invertido.</div>';
   }
 }
 
@@ -4061,6 +4061,7 @@ function verificarEquacao() {
 
 </body>
 </html>
+
 
 
 
