@@ -2374,6 +2374,7 @@ var primosSeleccionados = {};
 var primosAvanzadosSeleccionados = {};
 var tablaPrimos = {};
 var tablaPrimosAvanzada = {};
+var ultimasPantallas = {};
 var claveProgreso = "nati-matematica-progreso-v1";
 var ejerciciosPotencia = {
   "respuesta-potencia-1": { numero: 1, respuesta: "8", mensaje: "¡Muy bien, Nati! Empezaste con una potencia perfecta.", error: "2 × 2 × 2 = 8." },
@@ -2531,19 +2532,24 @@ function iniciarTeclado() {
 }
 
 function guardarProgreso() {
+  var pantallaActual = obtenerPantallaActual();
+
   if (typeof localStorage == "undefined") {
     return;
   }
 
+  guardarUltimaPantallaTema(pantallaActual);
+
   try {
     localStorage.setItem(claveProgreso, JSON.stringify({
-      pantalla: obtenerPantallaActual(),
+      pantalla: pantallaActual,
       respuestaActiva: respuestaActiva,
       respuestas: respuestas,
       primosSeleccionados: primosSeleccionados,
       primosAvanzadosSeleccionados: primosAvanzadosSeleccionados,
       tablaPrimos: tablaPrimos,
-      tablaPrimosAvanzada: tablaPrimosAvanzada
+      tablaPrimosAvanzada: tablaPrimosAvanzada,
+      ultimasPantallas: ultimasPantallas
     }));
   } catch (error) {
   }
@@ -2573,6 +2579,7 @@ function restaurarProgreso() {
   copiarValores(primosAvanzadosSeleccionados, progreso.primosAvanzadosSeleccionados);
   copiarValores(tablaPrimos, progreso.tablaPrimos);
   copiarValores(tablaPrimosAvanzada, progreso.tablaPrimosAvanzada);
+  copiarValores(ultimasPantallas, progreso.ultimasPantallas);
 
   mostrarPantallaGuardada(progreso.pantalla);
   restaurarSeleccionesPrimos();
@@ -2608,6 +2615,88 @@ function copiarValores(destino, origen) {
       destino[clave] = origen[clave];
     }
   }
+}
+
+function guardarUltimaPantallaTema(pantalla) {
+  var tema = obtenerTemaDePantalla(pantalla);
+
+  if (tema) {
+    ultimasPantallas[tema] = pantalla;
+  }
+}
+
+function obtenerTemaDePantalla(pantalla) {
+  if (pantalla == "pantalla-cuadrado" || pantalla == "pantalla-rectangulo" || pantalla == "pantalla-total" || pantalla == "pantalla-l" || pantalla == "pantalla-escalera" || pantalla == "pantalla-hueco" || pantalla == "pantalla-doble-hueco" || pantalla == "pantalla-escalera-grande" || pantalla == "pantalla-marco" || pantalla == "pantalla-rectangulo-recorte" || pantalla == "pantalla-mosaico") {
+    return "area";
+  }
+
+  if (pantalla.indexOf("pantalla-primos-") == 0) {
+    return "primos";
+  }
+
+  if (pantalla.indexOf("pantalla-obm-") == 0) {
+    return "obm";
+  }
+
+  if (pantalla.indexOf("pantalla-potencia-") == 0) {
+    return "potencia";
+  }
+
+  if (pantalla.indexOf("pantalla-equacao-") == 0) {
+    return "equacoes";
+  }
+
+  return "";
+}
+
+function mostrarUltimaPantallaTema(tema, pantallaInicial, respuestaInicial) {
+  var pantalla = ultimasPantallas[tema] || obtenerPantallaPendienteTema(tema) || pantallaInicial;
+
+  if (!document.getElementById(pantalla)) {
+    pantalla = pantallaInicial;
+  }
+
+  mostrarPantallaGuardada(pantalla);
+  restaurarSeleccionesPrimos();
+  actualizarTodosLosVisores();
+
+  if (!seleccionarRespuestaVisible()) {
+    ocultarTeclado();
+    guardarProgreso();
+    return;
+  }
+
+  if (obtenerPantallaActual() == pantallaInicial && respuestaInicial) {
+    seleccionarRespuesta(respuestaInicial);
+  }
+}
+
+function obtenerPantallaPendienteTema(tema) {
+  if (tema == "equacoes") {
+    return obtenerPantallaPendienteGenerica("equacao", ejerciciosEquacoes);
+  }
+
+  if (tema == "potencia") {
+    return obtenerPantallaPendienteGenerica("potencia", ejerciciosPotencia);
+  }
+
+  return "";
+}
+
+function obtenerPantallaPendienteGenerica(prefijo, ejercicios) {
+  var id;
+  var ejercicio;
+
+  for (var i = 1; i <= 15; i++) {
+    id = "respuesta-" + prefijo + "-" + i;
+    ejercicio = ejercicios[id];
+
+    if (ejercicio && respuestas[id] != ejercicio.respuesta) {
+      return "pantalla-" + prefijo + "-" + i;
+    }
+  }
+
+  return "pantalla-" + prefijo + "-15";
 }
 
 function obtenerPantallaActual() {
@@ -2661,9 +2750,10 @@ function actualizarBotonMenu() {
 }
 
 function volverMenu() {
+  guardarProgreso();
   mostrarPantallaGuardada("pantalla-menu");
   ocultarTeclado();
-  guardarProgreso();
+  actualizarBotonMenu();
 }
 
 function comenzarDeZero() {
@@ -2780,79 +2870,23 @@ function alternarAyuda() {
 }
 
 function mostrarArea() {
-  var menu = document.getElementById("pantalla-menu");
-  var primeraPantalla = document.getElementById("pantalla-cuadrado");
-
-  if (menu) {
-    menu.className = "menu-principal oculto";
-  }
-
-  if (primeraPantalla) {
-    primeraPantalla.className = "contenedor";
-  }
-
-  seleccionarRespuesta("respuesta");
+  mostrarUltimaPantallaTema("area", "pantalla-cuadrado", "respuesta");
 }
 
 function mostrarPrimos() {
-  var menu = document.getElementById("pantalla-menu");
-  var primeraPantalla = document.getElementById("pantalla-primos-1");
-
-  if (menu) {
-    menu.className = "menu-principal oculto";
-  }
-
-  if (primeraPantalla) {
-    primeraPantalla.className = "contenedor";
-  }
-
-  ocultarTeclado();
-  guardarProgreso();
+  mostrarUltimaPantallaTema("primos", "pantalla-primos-1", "");
 }
 
 function mostrarOBM() {
-  var menu = document.getElementById("pantalla-menu");
-  var primeraPantalla = document.getElementById("pantalla-obm-1");
-
-  if (menu) {
-    menu.className = "menu-principal oculto";
-  }
-
-  if (primeraPantalla) {
-    primeraPantalla.className = "contenedor";
-  }
-
-  seleccionarRespuesta("respuesta-obm-1");
+  mostrarUltimaPantallaTema("obm", "pantalla-obm-1", "respuesta-obm-1");
 }
 
 function mostrarPotencia() {
-  var menu = document.getElementById("pantalla-menu");
-  var primeraPantalla = document.getElementById("pantalla-potencia-1");
-
-  if (menu) {
-    menu.className = "menu-principal oculto";
-  }
-
-  if (primeraPantalla) {
-    primeraPantalla.className = "contenedor";
-  }
-
-  seleccionarRespuesta("respuesta-potencia-1");
+  mostrarUltimaPantallaTema("potencia", "pantalla-potencia-1", "respuesta-potencia-1");
 }
 
 function mostrarEquacoes() {
-  var menu = document.getElementById("pantalla-menu");
-  var primeraPantalla = document.getElementById("pantalla-equacao-1");
-
-  if (menu) {
-    menu.className = "menu-principal oculto";
-  }
-
-  if (primeraPantalla) {
-    primeraPantalla.className = "contenedor";
-  }
-
-  seleccionarRespuesta("respuesta-equacao-1");
+  mostrarUltimaPantallaTema("equacoes", "pantalla-equacao-1", "respuesta-equacao-1");
 }
 
 function togglePrimo(numero) {
@@ -4027,6 +4061,7 @@ function verificarEquacao() {
 
 </body>
 </html>
+
 
 
 
