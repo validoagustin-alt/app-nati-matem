@@ -65,11 +65,19 @@ body {
   display: none;
 }
 
-.boton-menu-app {
+.barra-superior-app {
   position: fixed;
   top: calc(10px + env(safe-area-inset-top));
   left: 10px;
+  right: 10px;
   z-index: 9998;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.boton-superior-app {
   margin: 0;
   padding: 8px 12px;
   border-radius: 999px;
@@ -78,6 +86,11 @@ body {
   font-size: 14px;
   font-weight: bold;
   box-shadow: 0 3px 10px rgba(124,58,237,0.18);
+  pointer-events: auto;
+}
+
+.boton-cero-app {
+  color: #be185d;
 }
 
 .menu-principal {
@@ -951,7 +964,10 @@ button {
 <body>
 
   <div class="estado-js" id="estado-js">JavaScript no activo</div>
-  <button type="button" class="boton-menu-app oculto" id="boton-menu-app" onclick="volverMenu()">Menú</button>
+  <div class="barra-superior-app" id="barra-superior-app">
+    <button type="button" class="boton-superior-app" onclick="volverMenu()">Menu</button>
+    <button type="button" class="boton-superior-app boton-cero-app" onclick="comenzarDeZero()">Começar de zero</button>
+  </div>
 
   <div class="menu-principal" id="pantalla-menu">
     <div class="menu-brillo">✦</div>
@@ -2635,23 +2651,30 @@ function mostrarPantallaGuardada(id) {
 }
 
 function actualizarBotonMenu() {
-  var boton = document.getElementById("boton-menu-app");
+  var barra = document.getElementById("barra-superior-app");
 
-  if (!boton) {
+  if (!barra) {
     return;
   }
 
-  if (obtenerPantallaActual() == "pantalla-menu") {
-    boton.className = "boton-menu-app oculto";
-  } else {
-    boton.className = "boton-menu-app";
-  }
+  barra.className = "barra-superior-app";
 }
 
 function volverMenu() {
   mostrarPantallaGuardada("pantalla-menu");
   ocultarTeclado();
   guardarProgreso();
+}
+
+function comenzarDeZero() {
+  if (typeof localStorage != "undefined") {
+    try {
+      localStorage.removeItem(claveProgreso);
+    } catch (error) {
+    }
+  }
+
+  window.location.reload();
 }
 
 function actualizarTodosLosVisores() {
@@ -4004,6 +4027,7 @@ function verificarEquacao() {
 
 </body>
 </html>
+
 
 
 
